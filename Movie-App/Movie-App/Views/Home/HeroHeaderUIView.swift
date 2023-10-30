@@ -81,7 +81,7 @@ class HeroHeaderUIView: UIView {
     
     
     public func configure(with model: Movie) {
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterPath)") else {
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(String(describing: model.poster_path))") else {
             return
         }
         

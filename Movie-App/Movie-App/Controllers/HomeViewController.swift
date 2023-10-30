@@ -41,7 +41,6 @@ class HomeViewController: UIViewController  {
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         homeFeedTable.tableHeaderView = headerView
         
-        feftchData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -62,16 +61,7 @@ class HomeViewController: UIViewController  {
     }
     
     
-    private func feftchData(){
-        APICaller.shared.getTrendingMovies { result in
-            switch result {
-            case .success(let movie):
-                print(movie)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+ 
  
 
 
@@ -93,6 +83,63 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
+        }
+        switch indexPath.section {
+        case Sections.TrendingMovies.rawValue:
+            APICaller.shared.getTrendingMovies {[weak self] result in
+                guard self != nil else {return}
+                switch result {
+                case .success(let result):
+                    cell.configure(with: result)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.TrendingTv.rawValue:
+            APICaller.shared.getTrendingTvs {[weak self] result in
+                guard self != nil else {return}
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Popular.rawValue:
+            APICaller.shared.getPopular {[weak self] result in
+                guard self != nil else {return}
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Sections.Upcoming.rawValue:
+            
+            APICaller.shared.getUpcomingMovies {[weak self] result in
+                guard self != nil else {return}
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
+        case Sections.TopRated.rawValue:
+            APICaller.shared.getTopRated {[weak self] result in
+                guard self != nil else {return}
+                switch result {
+                case .success(let titles):
+                    cell.configure(with: titles)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        default:
+            return UITableViewCell()
+
         }
         
         return cell

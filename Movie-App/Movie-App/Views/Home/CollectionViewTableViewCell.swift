@@ -12,7 +12,7 @@ import UIKit
 class CollectionViewTableViewCell: UITableViewCell {
 
     static let identifier = "CollectionViewTableViewCell"
-    private var titles: [Movie] = [Movie]()
+    private var movies: [Movie] = [Movie]()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -42,8 +42,9 @@ class CollectionViewTableViewCell: UITableViewCell {
     }
     
     
-    public func configure(with titles: [Movie]) {
-        self.titles = titles
+    public func configure(with movie: [Movie]) {
+        self.movies = movie
+        
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
         }
@@ -59,14 +60,17 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath) as? TitleCollectionViewCell else {
             return UICollectionViewCell()
         }
+   
+        guard let model = movies[indexPath.row].poster_path else {
+            return UICollectionViewCell()
+        }
+        cell.configure(with: model)
         
-        cell.configure(with: "")
-        cell.backgroundColor = .green
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return movies.count
     }
     
     

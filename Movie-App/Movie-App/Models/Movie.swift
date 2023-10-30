@@ -12,18 +12,18 @@ struct MovieResponse: Codable {
 }
 
 struct Movie: Codable {
-    
-    let id: Int?
-    let name: String?
-    let originalName: String?
-    let title: String?
-    let originalTitle: String?
-    let releaseDate: String?
-    let firstAirDate: String?
+ 
+    let id: Int
+    let original_title: String?
+    let original_name: String?
     let overview: String?
-    let posterPath: String?
-    let voteAverage: Double?
-    let voteCount: Int?
+    let poster_path: String?
+    let media_type: String?
+    let release_date: String?
+    let first_air_date: String?
+    let vote_average: Double?
+    let vote_count: Int?
+
     
 }
 
