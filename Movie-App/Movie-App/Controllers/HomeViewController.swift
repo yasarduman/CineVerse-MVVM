@@ -10,20 +10,14 @@ import UIKit
 // MARK: - HomeViewInterface
 protocol HomeViewInterface: AnyObject{
     func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie])
-}
-// MARK: - Sections Enum
-enum Sections: Int {
-    case TrendingMovies = 0
-    case TrendingTv = 1
-    case Popular = 2
-    case Upcoming = 3
-    case TopRated = 4
+    func configureHeaderView(with moviePath: [Movie])
 }
 
-class HomeViewController: MovieDataLoadingVC{
+
+class HomeViewController: UIViewController{
     // MARK: - Properties
     private lazy var viewModel = HomeVM()
-    
+   
     // MARK: - Data Arrays
     private lazy var trendingMovies: [Movie] = []
     private lazy var TrendingTVs: [Movie] = []
@@ -33,7 +27,7 @@ class HomeViewController: MovieDataLoadingVC{
     
     // MARK: - Header View
     private var headerView: HeroHeaderUIView?
-    
+
     // MARK: - Section Titles
     let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular", "Upcoming Movies", "Top rated"]
     
@@ -47,19 +41,14 @@ class HomeViewController: MovieDataLoadingVC{
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
-        view.backgroundColor = .systemBackground
-        view.addSubview(homeFeedTable)
-        homeFeedTable.delegate = self
-        homeFeedTable.dataSource = self
-        
-        configureNavbar()
-        
-        headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
-        homeFeedTable.tableHeaderView = headerView
+        configureUI()
+        configureTableView()
         
         viewModel.view = self
         viewModel.getMovies()
+        
    
     }
     
@@ -68,19 +57,28 @@ class HomeViewController: MovieDataLoadingVC{
         homeFeedTable.frame = view.bounds
     }
     
-    // MARK: - Configure Navigation Bar
-    private func configureNavbar() {
-        var image = UIImage(named: "netflixLogo")
-        image = image?.withRenderingMode(.alwaysOriginal)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+    // MARK: - UI Configuration
+    private func configureUI() {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        view.backgroundColor = .systemBackground
+        view.addSubview(homeFeedTable)
         
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
-        ]
-        navigationController?.navigationBar.tintColor = .white
     }
     
+    private func configureTableView() {
+        homeFeedTable.delegate = self
+        homeFeedTable.dataSource = self
+        
+        configureHeaderView()
+    
+        homeFeedTable.tableHeaderView = headerView
+        homeFeedTable.contentInsetAdjustmentBehavior = .never
+    }
+    
+    // MARK: - Configure HeaderView
+    private func configureHeaderView() {
+        headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
+    }
     
     // MARK: - Data Update
     private func updateTable(with data: [Movie]? = nil, for section: Sections) {
@@ -154,7 +152,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let header = view as? UITableViewHeaderFooterView else {return}
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
-        header.textLabel?.textColor = .white
+        header.textLabel?.textColor = .label
         header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
@@ -173,6 +171,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - HomeViewInterface
 extension HomeViewController: HomeViewInterface {
     
+    //Random Image
+    func configureHeaderView(with moviePath: [Movie]) {
+        let selectedTitle = moviePath.randomElement()
+        headerView?.configure(with: selectedTitle!)
+    }
+    
     func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie]) {
         
         self.updateTable(with: movie, for: .TrendingMovies)
@@ -180,6 +184,7 @@ extension HomeViewController: HomeViewInterface {
         self.updateTable(with: upcoming, for: .Popular)
         self.updateTable(with: popular, for: .Upcoming)
         self.updateTable(with: topRated, for: .TopRated)
+        
 
     }
 }
