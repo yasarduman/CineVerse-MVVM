@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  String+Ext.swift
 //  Movie-App
 //
 //  Created by Yaşar Duman on 30.10.2023.

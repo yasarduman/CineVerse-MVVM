@@ -7,8 +7,11 @@
 
 import UIKit
 
-
-
+// MARK: - HomeViewInterface
+protocol HomeViewInterface: AnyObject{
+    func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie])
+}
+// MARK: - Sections Enum
 enum Sections: Int {
     case TrendingMovies = 0
     case TrendingTv = 1
@@ -17,20 +20,34 @@ enum Sections: Int {
     case TopRated = 4
 }
 
-class HomeViewController: UIViewController  {
+class HomeViewController: MovieDataLoadingVC{
+    // MARK: - Properties
+    private lazy var viewModel = HomeVM()
     
+    // MARK: - Data Arrays
+    private lazy var trendingMovies: [Movie] = []
+    private lazy var TrendingTVs: [Movie] = []
+    private lazy var UpcomingMovies: [Movie] = []
+    private lazy var Popular: [Movie] = []
+    private lazy var TopRated: [Movie] = []
+    
+    // MARK: - Header View
     private var headerView: HeroHeaderUIView?
     
+    // MARK: - Section Titles
     let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular", "Upcoming Movies", "Top rated"]
     
+    // MARK: - TableView
     private let homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         return table
     }()
-
+    
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemBackground
         view.addSubview(homeFeedTable)
         homeFeedTable.delegate = self
@@ -41,6 +58,9 @@ class HomeViewController: UIViewController  {
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         homeFeedTable.tableHeaderView = headerView
         
+        viewModel.view = self
+        viewModel.getMovies()
+   
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,6 +68,7 @@ class HomeViewController: UIViewController  {
         homeFeedTable.frame = view.bounds
     }
     
+    // MARK: - Configure Navigation Bar
     private func configureNavbar() {
         var image = UIImage(named: "netflixLogo")
         image = image?.withRenderingMode(.alwaysOriginal)
@@ -61,14 +82,28 @@ class HomeViewController: UIViewController  {
     }
     
     
- 
- 
-
-
-    
+    // MARK: - Data Update
+    private func updateTable(with data: [Movie]? = nil, for section: Sections) {
+        switch section {
+        case .TrendingMovies:
+            trendingMovies = data ?? []
+        case .TrendingTv:
+            TrendingTVs = data ?? []
+        case .Popular:
+            Popular = data ?? []
+        case .Upcoming:
+            UpcomingMovies = data ?? []
+        case .TopRated:
+            TopRated = data ?? []
+        }
+        
+        DispatchQueue.main.async {
+            self.homeFeedTable.reloadData()
+        }
+    }
 }
 
-
+// MARK: - UITableViewDelegate and UITableViewDataSource
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -86,62 +121,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
-            APICaller.shared.getTrendingMovies {[weak self] result in
-                guard self != nil else {return}
-                switch result {
-                case .success(let result):
-                    cell.configure(with: result)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+            cell.configure(with: trendingMovies)
+            
         case Sections.TrendingTv.rawValue:
-            APICaller.shared.getTrendingTvs {[weak self] result in
-                guard self != nil else {return}
-                switch result {
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+            cell.configure(with: TrendingTVs)
+            
         case Sections.Popular.rawValue:
-            APICaller.shared.getPopular {[weak self] result in
-                guard self != nil else {return}
-                switch result {
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
+            cell.configure(with: UpcomingMovies)  
+            
         case Sections.Upcoming.rawValue:
-            
-            APICaller.shared.getUpcomingMovies {[weak self] result in
-                guard self != nil else {return}
-                switch result {
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-            
+            cell.configure(with: Popular)
+           
         case Sections.TopRated.rawValue:
-            APICaller.shared.getTopRated {[weak self] result in
-                guard self != nil else {return}
-                switch result {
-                case .success(let titles):
-                    cell.configure(with: titles)
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            cell.configure(with: TopRated)
         default:
             return UITableViewCell()
 
         }
-        
         return cell
     }
     
@@ -174,4 +170,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - HomeViewInterface
+extension HomeViewController: HomeViewInterface {
+    
+    func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie]) {
+        
+        self.updateTable(with: movie, for: .TrendingMovies)
+        self.updateTable(with: tvs, for: .TrendingTv)
+        self.updateTable(with: upcoming, for: .Popular)
+        self.updateTable(with: popular, for: .Upcoming)
+        self.updateTable(with: topRated, for: .TopRated)
 
+    }
+}
