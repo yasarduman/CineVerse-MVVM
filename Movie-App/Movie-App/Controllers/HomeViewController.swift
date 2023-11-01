@@ -8,16 +8,18 @@
 import UIKit
 
 // MARK: - HomeViewInterface
-protocol HomeViewInterface: AnyObject{
+protocol HomeViewInterface: AnyObject {
     func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie])
     func configureHeaderView(with moviePath: [Movie])
+    func showLoadingIndicator()
+    func dismissLoadingIndicator()
 }
 
 
 class HomeViewController: UIViewController{
     // MARK: - Properties
     private lazy var viewModel = HomeVM()
-   
+    
     // MARK: - Data Arrays
     private lazy var trendingMovies: [Movie] = []
     private lazy var TrendingTVs: [Movie] = []
@@ -27,7 +29,7 @@ class HomeViewController: UIViewController{
     
     // MARK: - Header View
     private var headerView: HeroHeaderUIView?
-
+    
     // MARK: - Section Titles
     let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular", "Upcoming Movies", "Top rated"]
     
@@ -38,10 +40,17 @@ class HomeViewController: UIViewController{
         return table
     }()
     
+    //MARK: - LoadingIndicatorContainerView
+    lazy var loadingIndicatorContainerView: UIView = {
+        let view = UIView(frame: view.bounds)
+        return view
+    }()
+    
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         configureUI()
         configureTableView()
@@ -49,7 +58,7 @@ class HomeViewController: UIViewController{
         viewModel.view = self
         viewModel.getMovies()
         
-   
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,7 +79,7 @@ class HomeViewController: UIViewController{
         homeFeedTable.dataSource = self
         
         configureHeaderView()
-    
+        
         homeFeedTable.tableHeaderView = headerView
         homeFeedTable.contentInsetAdjustmentBehavior = .never
     }
@@ -125,16 +134,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configure(with: TrendingTVs)
             
         case Sections.Popular.rawValue:
-            cell.configure(with: UpcomingMovies)  
+            cell.configure(with: UpcomingMovies)
             
         case Sections.Upcoming.rawValue:
             cell.configure(with: Popular)
-           
+            
         case Sections.TopRated.rawValue:
             cell.configure(with: TopRated)
         default:
             return UITableViewCell()
-
+            
         }
         return cell
     }
@@ -171,6 +180,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - HomeViewInterface
 extension HomeViewController: HomeViewInterface {
     
+    func showLoadingIndicator() {
+        view.addSubview(loadingIndicatorContainerView)
+        loadingIndicatorContainerView.backgroundColor = .systemBackground
+        loadingIndicatorContainerView.alpha = 0
+        
+        UIView.animate(withDuration: 0.25) {
+            self.loadingIndicatorContainerView.alpha = 0.8
+        }
+        
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        loadingIndicatorContainerView.addSubview(activityIndicator)
+        activityIndicator.centerInSuperview()
+        
+        activityIndicator.startAnimating()
+    }
+    
+    func dismissLoadingIndicator() {
+        DispatchQueue.main.async {
+            self.loadingIndicatorContainerView.removeFromSuperview()
+        }
+    }
+    
     //Random Image
     func configureHeaderView(with moviePath: [Movie]) {
         let selectedTitle = moviePath.randomElement()
@@ -185,6 +216,6 @@ extension HomeViewController: HomeViewInterface {
         self.updateTable(with: popular, for: .Upcoming)
         self.updateTable(with: topRated, for: .TopRated)
         
-
+        
     }
 }
