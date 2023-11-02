@@ -13,15 +13,26 @@ class TitleCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TitleCollectionViewCell"
     
-    private let posterImageView: UIImageView = {
+     private lazy var posterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
+    private lazy var imdbLabel: UILabel = {
+        let label = UILabel()
+        label.text = "8.7"
+        label.textColor = .white
+        label.backgroundColor = MovieColor.goldColor
+        label.font = UIFont.systemFont(ofSize: 20,weight: .bold)
+        return label
+    }()
+ 
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(posterImageView)
+        posterImageView.addSubview(imdbLabel)
+       
         
     }
     
@@ -32,6 +43,9 @@ class TitleCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         posterImageView.frame = contentView.bounds
+        imdbLabel.anchor(top: posterImageView.topAnchor,
+                         trailing: posterImageView.trailingAnchor,
+                         padding: .init(top: 5, left: 0, bottom: 0, right: 5))
     }
     
     

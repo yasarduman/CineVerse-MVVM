@@ -24,7 +24,8 @@
 		837727882AEFF731009BD4EC /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727872AEFF731009BD4EC /* Movie.swift */; };
 		8377278B2AEFF8C7009BD4EC /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8377278A2AEFF8C7009BD4EC /* SDWebImage */; };
 		83B0B7D92AF15BE7001D2726 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0B7D82AF15BE7001D2726 /* HomeVM.swift */; };
-		83E6DE042AF0EAF90083D414 /* NewsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE032AF0EAF90083D414 /* NewsError.swift */; };
+		83D766812AF3DD5700555A74 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D766802AF3DD5700555A74 /* Constants.swift */; };
+		83E6DE042AF0EAF90083D414 /* MovieError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE032AF0EAF90083D414 /* MovieError.swift */; };
 		83E6DE062AF0EC2D0083D414 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE052AF0EC2D0083D414 /* UIViewController+Ext.swift */; };
 		83E6DE092AF0EC500083D414 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE082AF0EC500083D414 /* AlertVC.swift */; };
 		83E6DE0C2AF0EC6D0083D414 /* AlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE0B2AF0EC6D0083D414 /* AlertContainerView.swift */; };
@@ -55,7 +56,8 @@
 		837727852AEFF724009BD4EC /* APICaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		837727872AEFF731009BD4EC /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		83B0B7D82AF15BE7001D2726 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
-		83E6DE032AF0EAF90083D414 /* NewsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsError.swift; sourceTree = "<group>"; };
+		83D766802AF3DD5700555A74 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		83E6DE032AF0EAF90083D414 /* MovieError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieError.swift; sourceTree = "<group>"; };
 		83E6DE052AF0EC2D0083D414 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		83E6DE082AF0EC500083D414 /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		83E6DE0B2AF0EC6D0083D414 /* AlertContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertContainerView.swift; sourceTree = "<group>"; };
@@ -123,7 +125,8 @@
 				83E6DE052AF0EC2D0083D414 /* UIViewController+Ext.swift */,
 				83E6E80E2AF2597C001984AD /* UIView+Ext.swift */,
 				837727722AEFF61F009BD4EC /* String+Ext.swift */,
-				83E6DE032AF0EAF90083D414 /* NewsError.swift */,
+				83E6DE032AF0EAF90083D414 /* MovieError.swift */,
+				83D766802AF3DD5700555A74 /* Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D766812AF3DD5700555A74 /* Constants.swift in Sources */,
 				837727582AEFF457009BD4EC /* AppDelegate.swift in Sources */,
 				837727832AEFF6B5009BD4EC /* HeroHeaderUIView.swift in Sources */,
 				83E6DE182AF0EDD40083D414 /* MovieButton.swift in Sources */,
@@ -329,7 +333,7 @@
 				837727822AEFF6B5009BD4EC /* CollectionViewTableViewCell.swift in Sources */,
 				8377277B2AEFF659009BD4EC /* MainTabBarViewController.swift in Sources */,
 				83E6DE1A2AF0EFD10083D414 /* MovieDataLoadingVC.swift in Sources */,
-				83E6DE042AF0EAF90083D414 /* NewsError.swift in Sources */,
+				83E6DE042AF0EAF90083D414 /* MovieError.swift in Sources */,
 				8377277A2AEFF659009BD4EC /* UpcomingViewController.swift in Sources */,
 				8377275A2AEFF457009BD4EC /* SceneDelegate.swift in Sources */,
 				83E6DE0C2AF0EC6D0083D414 /* AlertContainerView.swift in Sources */,

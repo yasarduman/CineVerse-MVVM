@@ -15,9 +15,6 @@ struct Constants {
     static let YoutubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
-enum APIError: Error {
-    case failedTogetData
-}
 class APICaller {
     static let shared = APICaller()
     let decoder = JSONDecoder()
@@ -25,57 +22,57 @@ class APICaller {
     func getTrendingMovies() async throws -> MovieResponse {
 
         guard let url = URL(string: "\(Constants.baseURL)/3/trending/movie/day?api_key=\(Constants.API_KEY)") else {
-            throw APIError.failedTogetData
+            throw MovieError.invalidUrl
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw APIError.failedTogetData
+                throw MovieError.invalidResponse
             }
             
             return try decoder.decode(MovieResponse.self, from: data)
         } catch {
-            throw APIError.failedTogetData
+            throw MovieError.invalidData
         }
     }
     
     func getTrendingTVs() async throws -> MovieResponse {
 
         guard let url = URL(string: "\(Constants.baseURL)/3/trending/tv/day?api_key=\(Constants.API_KEY)") else {
-            throw APIError.failedTogetData
+            throw MovieError.invalidUrl
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw APIError.failedTogetData
+                throw MovieError.invalidResponse
             }
             
             return try decoder.decode(MovieResponse.self, from: data)
         } catch {
-            throw APIError.failedTogetData
+            throw MovieError.invalidData
         }
     }
     
     func getUpcomingMovies() async throws -> MovieResponse {
 
         guard let url = URL(string: "\(Constants.baseURL)/3/movie/upcoming?api_key=\(Constants.API_KEY)&language=en-US&page=1") else {
-            throw APIError.failedTogetData
+            throw MovieError.invalidUrl
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw APIError.failedTogetData
+                throw MovieError.invalidResponse
             }
             
             return try decoder.decode(MovieResponse.self, from: data)
         } catch {
-            throw APIError.failedTogetData
+            throw MovieError.invalidData
         }
     }
     
@@ -83,38 +80,38 @@ class APICaller {
     func getPopular() async throws -> MovieResponse {
 
         guard let url = URL(string: "\(Constants.baseURL)/3/movie/popular?api_key=\(Constants.API_KEY)&language=en-US&page=1") else {
-            throw APIError.failedTogetData
+            throw MovieError.invalidUrl
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw APIError.failedTogetData
+                throw MovieError.invalidResponse
             }
             
             return try decoder.decode(MovieResponse.self, from: data)
         } catch {
-            throw APIError.failedTogetData
+            throw MovieError.invalidData
         }
     }
     
     func getTopRated() async throws -> MovieResponse {
 
         guard let url = URL(string: "\(Constants.baseURL)/3/movie/top_rated?api_key=\(Constants.API_KEY)&language=en-US&page=1") else {
-            throw APIError.failedTogetData
+            throw MovieError.invalidUrl
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw APIError.failedTogetData
+                throw MovieError.invalidResponse
             }
             
             return try decoder.decode(MovieResponse.self, from: data)
         } catch {
-            throw APIError.failedTogetData
+            throw MovieError.invalidData
         }
     }
     
@@ -122,19 +119,19 @@ class APICaller {
     func getDiscoverMovies() async throws -> MovieResponse {
 
         guard let url = URL(string: "\(Constants.baseURL)/3/discover/movie?api_key=\(Constants.API_KEY)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate") else {
-            throw APIError.failedTogetData
+            throw MovieError.invalidUrl
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                throw APIError.failedTogetData
+                throw MovieError.invalidResponse
             }
             
             return try decoder.decode(MovieResponse.self, from: data)
         } catch {
-            throw APIError.failedTogetData
+            throw MovieError.invalidData
         }
     }
     
@@ -156,7 +153,7 @@ class APICaller {
                 completion(.success(results.results))
 
             } catch {
-                completion(.failure(APIError.failedTogetData))
+                completion(.failure(MovieError.invalidData))
             }
 
         }
