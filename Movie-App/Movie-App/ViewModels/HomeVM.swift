@@ -22,11 +22,23 @@ protocol HomeVMInterface {
 
 final class HomeVM {
     weak var view: HomeViewInterface?
+    var loadingView: MovieDataLoadingVC?
+    
+    func showLoadingView() {
+        view?.showLoadingIndicator()
+           
+       }
+    
+    func hideLoadingView() {
+           view?.dismissLoadingIndicator()
+       }
+    
 }
+
 
 extension HomeVM: HomeVMInterface {
     func getMovies(){
-        view?.showLoadingIndicator()
+        showLoadingView()
         Task{
             do {
                 let getTrendingMovies  = try await APICaller.shared.getTrendingMovies().results
@@ -37,14 +49,14 @@ extension HomeVM: HomeVMInterface {
                 
                 view?.SaveDatas(with: getTrendingMovies, tvs: getTrendingTVs, upcoming: getUpcomingMovies, popular: getPopularMovies, topRated: getTopRated)
                 view?.configureHeaderView(with: getTrendingMovies)
-                view?.dismissLoadingIndicator()
+                hideLoadingView()
             }catch {
                 if let movieError = error as? MovieError {
                     print(movieError.rawValue)
-                    view?.dismissLoadingIndicator()
                 } else {
-                    view?.dismissLoadingIndicator()
+                   
                 }
+                hideLoadingView()
             }
         }
     }

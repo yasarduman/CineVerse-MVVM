@@ -28,4 +28,20 @@ import SafariServices
             
         }
         
+        // MARK: - Loading Indicator
+      // Shows a loading indicator view on top of the current view controller.
+        func showLoading() {
+            let loadingViewController = MovieDataLoadingVC()
+            loadingViewController.showLoadingView()
+            loadingViewController.modalPresentationStyle  = .overFullScreen
+            loadingViewController.modalTransitionStyle    = .crossDissolve
+            self.present(loadingViewController, animated: true)
+        }
+        // Dismisses the currently presented loading indicator view.
+        func dismissLoading() {
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+  
     }

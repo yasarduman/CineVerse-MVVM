@@ -1,8 +1,8 @@
 //
-//  GFDataLoadingVCViewController.swift
-//  GithubFollowers
+//  MovieDataLoadingVCswift
+//  Movie-App
 //
-//  Created by Yaşar Duman on 6.10.2023.
+//  Created by Yaşar Duman on 30.10.2023.
 //
 
 import UIKit
@@ -19,7 +19,7 @@ class MovieDataLoadingVC: UIViewController {
         containerView.backgroundColor   = .systemBackground
         containerView.alpha             = 0
         
-        UIView.animate(withDuration: 0.25) { self.containerView.alpha = 0.8 }
+        UIView.animate(withDuration: 0.05) { self.containerView.alpha = 0.8 }
         
         let activityIndicator = UIActivityIndicatorView(style: .large)
         containerView.addSubview(activityIndicator)

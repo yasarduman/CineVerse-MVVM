@@ -15,7 +15,6 @@ protocol HomeViewInterface: AnyObject {
     func dismissLoadingIndicator()
 }
 
-
 class HomeViewController: UIViewController{
     // MARK: - Properties
     private lazy var viewModel = HomeVM()
@@ -39,26 +38,15 @@ class HomeViewController: UIViewController{
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         return table
     }()
-    
-    //MARK: - LoadingIndicatorContainerView
-    lazy var loadingIndicatorContainerView: UIView = {
-        let view = UIView(frame: view.bounds)
-        return view
-    }()
-    
-    
+  
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         configureUI()
         configureTableView()
-        
+     
         viewModel.view = self
         viewModel.getMovies()
-        
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -71,7 +59,6 @@ class HomeViewController: UIViewController{
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         view.backgroundColor = .systemBackground
         view.addSubview(homeFeedTable)
-        
     }
     
     private func configureTableView() {
@@ -179,43 +166,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - HomeViewInterface
 extension HomeViewController: HomeViewInterface {
-    
-    func showLoadingIndicator() {
-        view.addSubview(loadingIndicatorContainerView)
-        loadingIndicatorContainerView.backgroundColor = .systemBackground
-        loadingIndicatorContainerView.alpha = 0
-        
-        UIView.animate(withDuration: 0.25) {
-            self.loadingIndicatorContainerView.alpha = 0.8
-        }
-        
-        let activityIndicator = UIActivityIndicatorView(style: .large)
-        loadingIndicatorContainerView.addSubview(activityIndicator)
-        activityIndicator.centerInSuperview()
-        
-        activityIndicator.startAnimating()
-    }
-    
-    func dismissLoadingIndicator() {
-        DispatchQueue.main.async {
-            self.loadingIndicatorContainerView.removeFromSuperview()
-        }
-    }
-    
     //Random Image
     func configureHeaderView(with moviePath: [Movie]) {
         let selectedTitle = moviePath.randomElement()
         headerView?.configure(with: selectedTitle!)
     }
-    
+    // Saves data and updates the table.
     func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie]) {
-        
         self.updateTable(with: movie, for: .TrendingMovies)
         self.updateTable(with: tvs, for: .TrendingTv)
         self.updateTable(with: upcoming, for: .Popular)
         self.updateTable(with: popular, for: .Upcoming)
         self.updateTable(with: topRated, for: .TopRated)
-        
-        
+    }
+    // Displays the loading indicator.
+    func showLoadingIndicator() {
+        showLoading()
+    }
+    // Dismisses the loading indicator.
+    func dismissLoadingIndicator() {
+        dismissLoading()
     }
 }
