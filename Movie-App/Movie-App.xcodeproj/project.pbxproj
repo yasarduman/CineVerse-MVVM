@@ -13,7 +13,7 @@
 		837727642AEFF458009BD4EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837727622AEFF458009BD4EC /* LaunchScreen.storyboard */; };
 		837727732AEFF61F009BD4EC /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727722AEFF61F009BD4EC /* String+Ext.swift */; };
 		837727792AEFF659009BD4EC /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727752AEFF659009BD4EC /* SearchViewController.swift */; };
-		8377277A2AEFF659009BD4EC /* UpcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727762AEFF659009BD4EC /* UpcomingViewController.swift */; };
+		8377277A2AEFF659009BD4EC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727762AEFF659009BD4EC /* ProfileViewController.swift */; };
 		8377277B2AEFF659009BD4EC /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727772AEFF659009BD4EC /* MainTabBarViewController.swift */; };
 		8377277C2AEFF659009BD4EC /* DownloadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837727782AEFF659009BD4EC /* DownloadsViewController.swift */; };
 		8377277E2AEFF662009BD4EC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8377277D2AEFF662009BD4EC /* HomeViewController.swift */; };
@@ -46,7 +46,7 @@
 		837727652AEFF458009BD4EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		837727722AEFF61F009BD4EC /* String+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		837727752AEFF659009BD4EC /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		837727762AEFF659009BD4EC /* UpcomingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpcomingViewController.swift; sourceTree = "<group>"; };
+		837727762AEFF659009BD4EC /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		837727772AEFF659009BD4EC /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		837727782AEFF659009BD4EC /* DownloadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsViewController.swift; sourceTree = "<group>"; };
 		8377277D2AEFF662009BD4EC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 				8377277D2AEFF662009BD4EC /* HomeViewController.swift */,
 				837727782AEFF659009BD4EC /* DownloadsViewController.swift */,
 				837727752AEFF659009BD4EC /* SearchViewController.swift */,
-				837727762AEFF659009BD4EC /* UpcomingViewController.swift */,
+				837727762AEFF659009BD4EC /* ProfileViewController.swift */,
 				837727772AEFF659009BD4EC /* MainTabBarViewController.swift */,
 			);
 			path = Controllers;
@@ -334,7 +334,7 @@
 				8377277B2AEFF659009BD4EC /* MainTabBarViewController.swift in Sources */,
 				83E6DE1A2AF0EFD10083D414 /* MovieDataLoadingVC.swift in Sources */,
 				83E6DE042AF0EAF90083D414 /* MovieError.swift in Sources */,
-				8377277A2AEFF659009BD4EC /* UpcomingViewController.swift in Sources */,
+				8377277A2AEFF659009BD4EC /* ProfileViewController.swift in Sources */,
 				8377275A2AEFF457009BD4EC /* SceneDelegate.swift in Sources */,
 				83E6DE0C2AF0EC6D0083D414 /* AlertContainerView.swift in Sources */,
 			);
