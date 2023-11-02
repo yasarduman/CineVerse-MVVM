@@ -7,7 +7,6 @@
 
 
 import Foundation
-import UIKit
 
 struct Constants {
     static let API_KEY = "9f34b030b7187aab01fbc340d02601ee"

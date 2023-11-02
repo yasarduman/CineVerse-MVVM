@@ -5,7 +5,7 @@
 //  Created by Yaşar Duman on 31.10.2023.
 //
 
-import Foundation
+
 // MARK: - Sections Enum
 enum Sections: Int {
     case TrendingMovies = 0

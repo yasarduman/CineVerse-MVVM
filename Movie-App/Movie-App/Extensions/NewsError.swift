@@ -6,9 +6,6 @@
 //
 
 
-
-import Foundation
-
 // MARK: - Custom Error Enum
 enum MovieError: String, Error {
     case invalidUrl             = "Url Dönüştürülemedi. Please try again."

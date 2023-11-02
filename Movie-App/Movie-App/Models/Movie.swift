@@ -5,7 +5,6 @@
 //  Created by Yaşar Duman on 30.10.2023.
 //
 
-import Foundation
 
 struct MovieResponse: Codable {
     let results: [Movie]

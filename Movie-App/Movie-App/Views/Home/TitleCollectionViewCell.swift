@@ -5,7 +5,7 @@
 //  Created by Yaşar Duman on 30.10.2023.
 //
 
-import UIKit
+
 import SDWebImage
 
 class TitleCollectionViewCell: UICollectionViewCell {

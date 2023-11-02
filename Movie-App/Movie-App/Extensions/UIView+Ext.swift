@@ -7,7 +7,6 @@
 
 
 import UIKit
-import SafariServices
 
 extension UIView{
     
