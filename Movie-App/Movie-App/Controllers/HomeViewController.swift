@@ -47,17 +47,23 @@ class HomeViewController: UIViewController{
      
         viewModel.view = self
         viewModel.getMovies()
+       
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        homeFeedTable.frame = view.bounds
+        // Güvenli alanın altındaki boşluğu hesaplayın
+        let safeAreaBottom = view.safeAreaInsets.bottom
+        //SafeAreaKadar Boşluk bıraktık
+        homeFeedTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaBottom, right: 0)
+        homeFeedTable.frame = view.frame
     }
     
     // MARK: - UI Configuration
     private func configureUI() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         view.addSubview(homeFeedTable)
+        
     }
     
     private func configureTableView() {
@@ -67,7 +73,7 @@ class HomeViewController: UIViewController{
         configureHeaderView()
         
         homeFeedTable.tableHeaderView = headerView
-        homeFeedTable.backgroundColor = .secondarySystemBackground
+        homeFeedTable.backgroundColor = .tertiarySystemGroupedBackground
         homeFeedTable.contentInsetAdjustmentBehavior = .never
     }
     
@@ -75,7 +81,7 @@ class HomeViewController: UIViewController{
     private func configureHeaderView() {
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
     }
-    
+     
     // MARK: - Data Update
     private func updateTable(with data: [Movie]? = nil, for section: Sections) {
         switch section {
@@ -146,7 +152,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else {return}
-        header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        header.textLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .label
         header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
