@@ -29,7 +29,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "8.7"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 20,weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 18,weight: .bold)
         return label
     }()
  
