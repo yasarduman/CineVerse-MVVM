@@ -57,7 +57,6 @@ class HomeViewController: UIViewController{
     // MARK: - UI Configuration
     private func configureUI() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        view.backgroundColor = .systemBackground
         view.addSubview(homeFeedTable)
     }
     
@@ -68,6 +67,7 @@ class HomeViewController: UIViewController{
         configureHeaderView()
         
         homeFeedTable.tableHeaderView = headerView
+        homeFeedTable.backgroundColor = .secondarySystemBackground
         homeFeedTable.contentInsetAdjustmentBehavior = .never
     }
     

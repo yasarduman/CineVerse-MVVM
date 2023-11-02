@@ -60,10 +60,12 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
             return UICollectionViewCell()
         }
    
-        guard let model = movies[indexPath.row].poster_path else {
-            return UICollectionViewCell()
-        }
-        cell.configure(with: model)
+       if let model: Movie = movies[indexPath.row] as? Movie {
+           cell.configure(with: model)
+       } else {
+          return UICollectionViewCell()
+       }
+       
         
         return cell
     }
