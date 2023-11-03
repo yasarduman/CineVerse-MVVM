@@ -47,7 +47,6 @@ class HomeViewController: UIViewController{
      
         viewModel.view = self
         viewModel.getMovies()
-       
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,7 +62,6 @@ class HomeViewController: UIViewController{
     private func configureUI() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         view.addSubview(homeFeedTable)
-        
     }
     
     private func configureTableView() {
@@ -144,7 +142,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
-    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
