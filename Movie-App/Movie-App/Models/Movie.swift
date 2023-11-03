@@ -11,7 +11,6 @@ struct MovieResponse: Codable {
 }
 
 struct Movie: Codable {
- 
     let id: Int
     let original_title: String?
     let original_name: String?

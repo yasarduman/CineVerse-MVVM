@@ -7,38 +7,75 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
+class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemYellow
-        
-        let vc1 = UINavigationController(rootViewController: HomeViewController())
-        let vc2 = UINavigationController(rootViewController: SearchViewController())
-        let vc3 = UINavigationController(rootViewController: DownloadsViewController())
-        let vc4 = UINavigationController(rootViewController: ProfileViewController())
-        
-        
-        
-        vc1.tabBarItem.image = UIImage(systemName: "house")
-        vc2.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-        vc3.tabBarItem.image = UIImage(systemName: "arrow.down.to.line")
-        vc4.tabBarItem.image = UIImage(systemName: "person")
-    
-        
-        vc1.title = "Home"
-        vc2.title = "Top Search"
-        vc3.title = "Downloads"
-        vc4.title = "Profile"
-        
-        
-        
-        tabBar.tintColor = .label
-        
-        setViewControllers([vc1, vc2, vc3, vc4], animated: true)
+       
+        // Tab bar arka plan rengini beyaz yapın
+        UITabBar.appearance().backgroundColor = .clear
 
+          // Seçili olan öğelerin rengini turuncu yapın
+        UITabBar.appearance().tintColor = MovieColor.playButonBG
+       
+          // Seçilmeyen öğelerin rengini gri yapın
+        UITabBar.appearance().unselectedItemTintColor = .systemGray
+        
+        viewControllers = [
+            createHomeNC(),
+            createSearchNC(),
+            createFavoritesNC(),
+            createProfileNC()
+        ]
     }
+    
+    
+    // MARK: - Home Navigation Controller 🏠
+    func createHomeNC() -> UINavigationController {
+        let homeVC        = HomeViewController()
 
-
+        homeVC.tabBarItem = UITabBarItem(title: "Home",
+                                         image: UIImage(systemName: "house"),
+                                         tag: 0)
+        
+        homeVC.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
+        
+        return UINavigationController(rootViewController: homeVC)
+    }
+ 
+    // MARK: - Search Navigation Controller 🔍
+    func createSearchNC() -> UINavigationController {
+        let searchVC        = SearchViewController()
+        searchVC.title      = "Discover"
+       
+        searchVC.tabBarItem = UITabBarItem(title: "Search",
+                                           image: UIImage(systemName: "magnifyingglass"),
+                                           tag: 1)
+        
+        
+        return UINavigationController(rootViewController: searchVC)
+    }
+    
+    // MARK: - Favorites Navigation Controller ⭐️
+    func createFavoritesNC() -> UINavigationController {
+        let favoritesVC        = DownloadsViewController()
+        
+        favoritesVC.tabBarItem = UITabBarItem(title: "Favorites",
+                                           image: UIImage(systemName: "arrow.down.to.line"),
+                                           tag: 2)
+        
+        return UINavigationController(rootViewController: favoritesVC)
+    }
+    
+    
+//     MARK: - Profile Navigation Controller ⚙️
+        func createProfileNC() -> UINavigationController {
+            let profileVC        = ProfileViewController()
+    
+            profileVC.tabBarItem = UITabBarItem(title: "Profile",
+                                               image: UIImage(systemName: "person"),
+                                               tag: 3)
+    
+            return UINavigationController(rootViewController: profileVC)
+        }
 }
-

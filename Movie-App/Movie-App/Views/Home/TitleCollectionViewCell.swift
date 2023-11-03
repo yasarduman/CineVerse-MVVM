@@ -13,15 +13,16 @@ class TitleCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TitleCollectionViewCell"
     
-     private lazy var posterImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    lazy var containerImdb: UIView = {
+    private lazy var posterImageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.contentMode = .scaleAspectFill
+    return imageView
+}()
+    private lazy var containerImdb: UIView = {
         let container = UIView()
         container.backgroundColor = MovieColor.playButonBG
-   
+        container.layer.cornerRadius = 12.5
+
         return container
     }()
     
@@ -29,7 +30,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "8.7"
         label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 20,weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 14,weight: .bold)
         return label
     }()
  
@@ -51,9 +52,8 @@ class TitleCollectionViewCell: UICollectionViewCell {
         posterImageView.frame = contentView.bounds
         containerImdb.anchor(top: posterImageView.topAnchor,
                              trailing: posterImageView.trailingAnchor,
-                             padding: .init(top: 10, left: 0, bottom: 0, right: 10),
-                             size: .init(width: 60, height: 25))
-        containerImdb.layer.cornerRadius = containerImdb.frame.height / 2
+                             padding: .init(top: 6, left: 0, bottom: 0, right: 6),
+                             size: .init(width: 50, height: 25))
         imdbLabel.centerInSuperview()
     }
     
