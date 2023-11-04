@@ -35,6 +35,7 @@ class HomeViewController: UIViewController{
     // MARK: - TableView
     private let homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
+        table.separatorStyle = .none
         table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         return table
     }()

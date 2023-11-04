@@ -72,7 +72,7 @@ class DownloadTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var ReleaseDateImage: UIImageView = {
+    private lazy var ReleaseDateImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "calendar.badge.clock")
         image.contentMode = .scaleAspectFill
@@ -81,7 +81,6 @@ class DownloadTableViewCell: UITableViewCell {
         return image
     }()
     
-
     private lazy var imdbStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -97,6 +96,7 @@ class DownloadTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 15,weight: .bold)
         return label
     }()
+    
     private lazy var imdbImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -117,7 +117,6 @@ class DownloadTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
  
-    
     // MARK: - UI Configiration
     private func configureUI() {
         contentView.addSubview(containerView)
@@ -141,8 +140,7 @@ class DownloadTableViewCell: UITableViewCell {
                              leading: contentView.leadingAnchor,
                              bottom: contentView.bottomAnchor,
                              trailing: contentView.trailingAnchor,
-                             padding: .init(top: 10, left: 10, bottom: 10, right: 10)
-        )
+                             padding: .init(top: 10, left: 10, bottom: 10, right: 10))
     }
     
     private func configureMovieImage(){
@@ -156,38 +154,26 @@ class DownloadTableViewCell: UITableViewCell {
         movieName.anchor(top: containerView.topAnchor,
                          leading: movieImage.trailingAnchor,
                          trailing: imdbImageView.leadingAnchor,
-                         padding: .init(top: 18, left: 10, bottom: 0, right: 5)
-        )
+                         padding: .init(top: 18, left: 10, bottom: 0, right: 5))
     }
     private func configureMovieOverview(){
         movieOverview.anchor(top: movieName.bottomAnchor,
                              leading: movieImage.trailingAnchor,
                              trailing: containerView.trailingAnchor,
-                             padding: .init(top: 10, left: 10, bottom: 0, right: 10)
-        )
+                             padding: .init(top: 10, left: 10, bottom: 0, right: 10))
     }
     
     private func configureDateStackView(){
         DateStackView.anchor(top: movieOverview.bottomAnchor,
                              leading: movieImage.trailingAnchor,
                              bottom: containerView.bottomAnchor,
-                             padding: .init(top: 10, left: 10, bottom: 10, right: 0)
-        )
+                             padding: .init(top: 10, left: 10, bottom: 10, right: 0))
     }
     
     private func configureImdbStackView(){
         imdbStackView.anchor(top: movieOverview.bottomAnchor,
                              bottom: containerView.bottomAnchor,
                              trailing: containerView.trailingAnchor,
-                             padding: .init(top: 10, left: 0, bottom: 10, right: 10)
-                             
-        )
-        // Configure Label
-        
+                             padding: .init(top: 10, left: 0, bottom: 10, right: 10))
     }
-    
-}
-
-#Preview{
-    DownloadTableViewCell()
 }

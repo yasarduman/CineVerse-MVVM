@@ -46,7 +46,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     // MARK: - Search Navigation Controller 🔍
     func createSearchNC() -> UINavigationController {
         let searchVC        = SearchViewController()
-        searchVC.title      = "Discover"
+        searchVC.title      = "Search"
        
         searchVC.tabBarItem = UITabBarItem(title: "Search",
                                            image: UIImage(systemName: "magnifyingglass"),
@@ -58,20 +58,22 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     // MARK: - Favorites Navigation Controller ⭐️
     func createFavoritesNC() -> UINavigationController {
-        let favoritesVC        = DownloadsViewController()
+        let downloadVC        = DownloadsViewController()
+        downloadVC.title = "Download"
         
-        favoritesVC.tabBarItem = UITabBarItem(title: "Favorites",
+        downloadVC.tabBarItem = UITabBarItem(title: "Download",
                                            image: UIImage(systemName: "arrow.down.to.line"),
                                            tag: 2)
         
-        return UINavigationController(rootViewController: favoritesVC)
+        return UINavigationController(rootViewController: downloadVC)
     }
     
     
 //     MARK: - Profile Navigation Controller ⚙️
         func createProfileNC() -> UINavigationController {
             let profileVC        = ProfileViewController()
-    
+            profileVC.title = "Profile"
+            
             profileVC.tabBarItem = UITabBarItem(title: "Profile",
                                                image: UIImage(systemName: "person"),
                                                tag: 3)

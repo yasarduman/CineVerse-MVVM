@@ -19,12 +19,22 @@ class ProfileViewController : UIViewController {
     
     private lazy var models = [Section]()
     
+    // MARK: - Header View
+    private var headerView: ProfileUIView?
+    
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureHeaderView()
+        tableView.tableHeaderView = headerView
     }
     
+    // MARK: - Configure HeaderView
+    private func configureHeaderView() {
+        headerView = ProfileUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 180))
+    }
+     
     // MARK: - Configure UI
     private func configureUI(){
         setupTableView()
@@ -35,7 +45,7 @@ class ProfileViewController : UIViewController {
             view.addSubview(tableView)
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.frame = view.bounds
+            tableView.frame = view.frame
             tableView.backgroundColor = .systemBackground
             tableView.separatorStyle = .none
         }

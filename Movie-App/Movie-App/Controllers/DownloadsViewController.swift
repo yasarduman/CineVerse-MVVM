@@ -15,11 +15,12 @@ class DownloadsViewController: UIViewController {
         tableView.register(DownloadTableViewCell.self, forCellReuseIdentifier: DownloadTableViewCell.reuseID)
         return tableView
     }()
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .secondarySystemBackground
-        navigationItem.title = "Download"
+     
         configureTableView()
     }
     

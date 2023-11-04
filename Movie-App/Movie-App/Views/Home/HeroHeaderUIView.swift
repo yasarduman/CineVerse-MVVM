@@ -96,9 +96,19 @@ class HeroHeaderUIView: UIView {
         stackView.addArrangedSubview(imdbLabel)
         stackView.addArrangedSubview(imdbImageView)
         
-        
         ConfigureUI()
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        heroImageView.frame = bounds
+
+    }
+  
     private func addGradient() {
         gradientLayer.colors = [
             UIColor.clear.cgColor,
@@ -163,19 +173,5 @@ class HeroHeaderUIView: UIView {
                 self.moviName.text = model.original_name ?? model.original_title
             }
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        heroImageView.frame = bounds
-        gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.tertiarySystemGroupedBackground.cgColor
-        ]
-        downloadButton.layer.borderColor = UIColor.label.cgColor
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
     }
 }

@@ -34,7 +34,7 @@ class SearchViewController: UIViewController {
     // MARK: - Helper Functions
     private func configureUI() {
         view.backgroundColor = .secondarySystemBackground
-        navigationItem.title = "Search"
+        
         createSearchBar()
         configureTableView()
         

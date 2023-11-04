@@ -40,6 +40,7 @@
 		83E6DE182AF0EDD40083D414 /* MovieButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE172AF0EDD40083D414 /* MovieButton.swift */; };
 		83E6DE1A2AF0EFD10083D414 /* MovieDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6DE192AF0EFD10083D414 /* MovieDataLoadingVC.swift */; };
 		83E6E80F2AF2597C001984AD /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E6E80E2AF2597C001984AD /* UIView+Ext.swift */; };
+		83EC0A072AF6327100759588 /* ProfileUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EC0A062AF6327100759588 /* ProfileUIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		83E6DE172AF0EDD40083D414 /* MovieButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieButton.swift; sourceTree = "<group>"; };
 		83E6DE192AF0EFD10083D414 /* MovieDataLoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDataLoadingVC.swift; sourceTree = "<group>"; };
 		83E6E80E2AF2597C001984AD /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		83EC0A062AF6327100759588 /* ProfileUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		8310C6CB2AF56CC10093B0EE /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				83EC0A062AF6327100759588 /* ProfileUIView.swift */,
 				8310C6CC2AF56D730093B0EE /* SettingTableViewCell.swift */,
 				8310C6CD2AF56D730093B0EE /* SwitchTableViewCell.swift */,
 			);
@@ -218,8 +221,8 @@
 		837727742AEFF643009BD4EC /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				8377277F2AEFF6B5009BD4EC /* CollectionViewTableViewCell.swift */,
 				837727802AEFF6B5009BD4EC /* HeroHeaderUIView.swift */,
+				8377277F2AEFF6B5009BD4EC /* CollectionViewTableViewCell.swift */,
 				837727812AEFF6B5009BD4EC /* TitleCollectionViewCell.swift */,
 			);
 			path = Home;
@@ -370,6 +373,7 @@
 				8310C6CA2AF527400093B0EE /* WorkItem.swift in Sources */,
 				83E6E80F2AF2597C001984AD /* UIView+Ext.swift in Sources */,
 				837727792AEFF659009BD4EC /* SearchViewController.swift in Sources */,
+				83EC0A072AF6327100759588 /* ProfileUIView.swift in Sources */,
 				83E6DE092AF0EC500083D414 /* AlertVC.swift in Sources */,
 				8310C6D02AF56D730093B0EE /* SwitchTableViewCell.swift in Sources */,
 				837727882AEFF731009BD4EC /* Movie.swift in Sources */,
