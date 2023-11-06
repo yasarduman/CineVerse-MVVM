@@ -150,7 +150,7 @@ extension SearchViewController: UISearchResultsUpdating, SearchResultsViewContro
       
         Task{
             do {
-                let getUpcomingMovies  = try await APICaller.shared.search(with: query).results
+                let getUpcomingMovies  = try await APICaller.shared.search(with: query).results.filter({$0.poster_path != nil})
                 resultsController.movies = getUpcomingMovies
                 resultsController.searchResultsCollectionView.reloadData()
                

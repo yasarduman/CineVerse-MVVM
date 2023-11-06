@@ -86,6 +86,7 @@ class HomeViewController: UIViewController{
     // MARK: - Configure HeaderView
     private func configureHeaderView() {
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
+        headerView?.delegate = self
       
     }
      
@@ -211,4 +212,40 @@ extension HomeViewController: CollectionViewTableViewCellDelegate {
             self?.navigationController?.pushViewController(vc, animated: true)
         }
     }
+}
+
+
+
+
+extension HomeViewController: HeroHeaderUIViewProtocol {
+    func showDetail(movie: Movie) {
+        let vc = MoviePreviewViewController()
+        Task{
+            do {
+                let moviePreviewModel  = try await APICaller.shared.getMovie(with: movie.original_title! + " trailer")
+                guard let movieOverview = movie.overview else {
+                    return
+                }
+             
+               
+                let viewModel = MoviePreviewViewModel(title: movie.original_title!,
+                                                      youtubeView: moviePreviewModel,
+                                                      movieOverview: movieOverview,
+                                                      release_date: movie.release_date ?? movie.first_air_date)
+                vc.configure(with: viewModel, moviModelIsFavori: movie)
+                navigationController?.pushViewController(vc, animated: true)
+               
+            }catch {
+                if let movieError = error as? MovieError {
+                    print(movieError.rawValue)
+                } else {
+                   
+                }
+                
+            }
+        }
+        
+    }
+    
+    
 }

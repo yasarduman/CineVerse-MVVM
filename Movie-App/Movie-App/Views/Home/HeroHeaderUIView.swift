@@ -9,6 +9,10 @@
 import UIKit
 
 
+protocol HeroHeaderUIViewProtocol: AnyObject {
+    func showDetail(movie: Movie)
+}
+
 
 class HeroHeaderUIView: UIView {
 
@@ -75,6 +79,10 @@ class HeroHeaderUIView: UIView {
     // Gradient Layer
 
     let gradientLayer = CAGradientLayer()
+    
+    weak var delegate: HeroHeaderUIViewProtocol?
+    
+    var movie: Movie?
 
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -123,6 +131,7 @@ class HeroHeaderUIView: UIView {
                           bottom: bottomAnchor,
                           padding: .init(top: 0, left: 20, bottom: 30, right: 0),
                           size: .init(width: 120, height: 46))
+        playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
     }
     
     private func configureDownloadButton() {
@@ -146,12 +155,14 @@ class HeroHeaderUIView: UIView {
     
     @objc func playButtonTapped() {
         DispatchQueue.main.async {
-            self.movieName.textColor = .red
+            self.delegate?.showDetail(movie: self.movie!)
         }
     }
     
 // MARK: - UpdateData
     public func configure(with model: Movie) {
+        
+        movie = model
     
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(String(describing: model.poster_path!))") else {
             return
