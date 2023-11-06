@@ -8,9 +8,10 @@
 import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
-    
+    // MARK: - Properties
     static let identifier = "SwitchTableViewCell"
     
+    // MARK: - UI Elements
     private let iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -38,8 +39,7 @@ class SwitchTableViewCell: UITableViewCell {
         return mySwitch
     }()
     
-    
-   
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(label)
@@ -49,22 +49,47 @@ class SwitchTableViewCell: UITableViewCell {
         
         contentView.clipsToBounds = true
         accessoryType = .disclosureIndicator
-        
+    
         // UserDefaults veya başka bir ayar mekanizması ile Dark Mode durumunu kontrol edin
         mySwitch.addTarget(self, action: #selector(darkModeSwitchValueChanged(_:)), for: .valueChanged)
-        
+        updateDarkModeUI()
     }
     
     @objc func darkModeSwitchValueChanged(_ sender: UISwitch) {
-      
+        let isDarkModeOn = sender.isOn
+        
+        if isDarkModeOn {
+            UserDefaults.standard.set(true, forKey: "DarkMode")
+        } else {
+            UserDefaults.standard.set(false, forKey: "DarkMode")
+        }
+        
+        updateDarkModeUI()
+        
+        if #available(iOS 15.0, *) {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                windowScene.windows.forEach { window in
+                    window.overrideUserInterfaceStyle = isDarkModeOn ? .dark : .light
+                }
+            }
+        } else {
+            UIApplication.shared.windows.forEach { window in
+                window.overrideUserInterfaceStyle = isDarkModeOn ? .dark : .light
+            }
+        }
     }
 
-   
+    // MARK: - Dark Mode Handling
+    private func updateDarkModeUI() {
+        let isDarkModeOn = UserDefaults.standard.bool(forKey: "DarkMode")
+        mySwitch.isOn = isDarkModeOn
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
     
@@ -77,8 +102,8 @@ class SwitchTableViewCell: UITableViewCell {
         
         iconContainer.anchor(leading: leadingAnchor,
                              padding: .init(top: 0, left: 15, bottom: 0, right: 0),
-                             size: .init(width: size, height: size)
-        )
+                             size: .init(width: size, height: size))
+        
         iconContainer.centerYInSuperview()
         
         iconImageView.anchor(size: .init(width: imageSize, height: imageSize))
@@ -86,19 +111,18 @@ class SwitchTableViewCell: UITableViewCell {
         iconImageView.centerYInSuperview()
         
         label.anchor(leading: iconContainer.trailingAnchor,
-                     padding: .init(top: 0, left: 20, bottom: 0, right: 0)
-        )
+                     padding: .init(top: 0, left: 20, bottom: 0, right: 0))
+        
         label.centerYInSuperview()
         
         mySwitch.anchor(trailing: contentView.trailingAnchor,
                         padding: .init(top: 0, left: 0, bottom: 0, right: 20),
-                        size: .init(width: mySwitchwidth, height: mySwitchheight)
-        )
-        mySwitch.centerYInSuperview()
+                        size: .init(width: mySwitchwidth, height: mySwitchheight))
         
+        mySwitch.centerYInSuperview()
     }
 
-    
+    // MARK: - Prepare For Reuse
     override func prepareForReuse() {
         super.prepareForReuse()
         iconImageView.image = nil
@@ -107,12 +131,11 @@ class SwitchTableViewCell: UITableViewCell {
         mySwitch.isOn = false
     }
     
+    // MARK: - Configure Cell
     public func configure(with model: SettingsSwitchOption){
         label.text = model.title
         iconImageView.image = model.icon
         iconContainer.backgroundColor = model.iconBackgrondColor
         mySwitch.isOn = model.isOn
     }
-    
-    
 }

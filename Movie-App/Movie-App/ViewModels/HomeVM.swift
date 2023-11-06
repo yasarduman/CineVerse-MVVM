@@ -30,7 +30,6 @@ final class HomeVM {
     func hideLoadingView() {
            view?.dismissLoadingIndicator()
        }
-    
 }
 
 
@@ -58,5 +57,4 @@ extension HomeVM: HomeVMInterface {
             }
         }
     }
-    
 }

@@ -1,14 +1,15 @@
 //
-//  TitleViewModel.swift
-//  Netflix Clone
+//  MovieCellModel.swift
+//  Movie-App
 //
-//  Created by Amr Hossam on 24/12/2021.
+//  Created by Yaşar Duman on 30.10.2023.
 //
+
 
 import Foundation
 
 
-struct MovieViewModel : Codable{
+struct MovieCellModel{
     let titleName: String
     let posterURL: String
     let vote_average: Double?

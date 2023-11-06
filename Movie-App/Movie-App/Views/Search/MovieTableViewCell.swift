@@ -1,9 +1,10 @@
 //
 //  TitleTableViewCell.swift
-//  Netflix Clone
+//  Movie-App
 //
-//  Created by Amr Hossam on 24/12/2021.
+//  Created by Yaşar Duman on 30.10.2023.
 //
+
 
 import UIKit
 
@@ -112,6 +113,7 @@ class MovieTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .secondarySystemBackground
@@ -130,7 +132,7 @@ class MovieTableViewCell: UITableViewCell {
         applyConstraints()
     }
     
-    
+    // MARK: - Constraints
     private func applyConstraints() {
         
         containerView.anchor(top: contentView.topAnchor,
@@ -160,7 +162,8 @@ class MovieTableViewCell: UITableViewCell {
                              padding: .init(top: 15, left: 0, bottom: 10, right: 10))
     }
     
-    public func configure(with model: MovieViewModel) {
+    // MARK: - Public Methods
+    public func configure(with model: MovieCellModel) {
 
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {
             return

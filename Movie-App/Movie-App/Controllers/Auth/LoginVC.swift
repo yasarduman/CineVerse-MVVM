@@ -1,6 +1,6 @@
 //
 //  LoginVC.swift
-//  NewAppAdvanced
+//  Movie-App
 //
 //  Created by Yaşar Duman on 15.10.2023.
 //
@@ -42,8 +42,7 @@ class LoginVC: UIViewController {
         HeadLabel.anchor(top: view.topAnchor,
                          leading: view.leadingAnchor,
                          //trailing: view.trailingAnchor,
-                         padding: .init(top: 80, left: 20, bottom: 0, right: 0)
-        )
+                         padding: .init(top: 80, left: 20, bottom: 0, right: 0))
     }
     
     private func configureTextField() {
@@ -51,18 +50,13 @@ class LoginVC: UIViewController {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 40, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50)
-                              
-                              
-        )
+                              size: .init(width: 0, height: 50))
         
         passwordTextField.anchor(top: emailTextField.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50)
-                              
-        )
+                              size: .init(width: 0, height: 50))
     }
     
     private func configureForgotPassword(){
@@ -70,9 +64,7 @@ class LoginVC: UIViewController {
     
         forgotPasswordButton.anchor(top: passwordTextField.bottomAnchor,
                                     trailing: passwordTextField.trailingAnchor,
-                                    padding: .init(top: 10, left: 0, bottom: 0, right: 0)
-                                    
-        )
+                                    padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         
         forgotPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
     }
@@ -84,8 +76,7 @@ class LoginVC: UIViewController {
                             leading: view.leadingAnchor,
                             trailing: view.trailingAnchor,
                             padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                            size: .init(width: 0, height: 50)
-        )
+                            size: .init(width: 0, height: 50))
         
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
     }
@@ -102,8 +93,8 @@ class LoginVC: UIViewController {
  
         
         stackView.anchor(top: signInButton.bottomAnchor,
-                         padding: .init(top: 5, left: 0, bottom: 0, right: 0)
-        )
+                         padding: .init(top: 5, left: 0, bottom: 0, right: 0))
+        
         stackView.centerXInSuperview()
         
         newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
@@ -144,7 +135,6 @@ class LoginVC: UIViewController {
                 return
             }
          
-            
             return
         }
         
@@ -169,13 +159,10 @@ class LoginVC: UIViewController {
     @objc private func didTapNewUser() {
         let vc = RegisterVC()
         self.navigationController?.pushViewController(vc, animated: true)
-
     }
+    
     @objc private func didTapForgotPassword() {
         let vc = ForgotPasswordVC()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-
-    
 }

@@ -1,9 +1,10 @@
 //
 //  TitlePreviewViewController.swift
-//  Netflix Clone
+//  Movie-App
 //
-//  Created by Amr Hossam on 07/01/2022.
+//  Created by Yaşar Duman on 30.10.2023.
 //
+
 
 import UIKit
 import WebKit
@@ -174,7 +175,7 @@ class MoviePreviewViewController: UIViewController {
     }
     
     // MARK: - Public Methods
-    public func configure(with model: MoviePreviewViewModel, moviModelIsFavori: Movie) {
+    public func configure(with model: MoviePreviewModel, moviModelIsFavori: Movie) {
         self.movies = moviModelIsFavori
         
         titleLabel.text = model.title

@@ -1,6 +1,6 @@
 //
 //  RegisterVC.swift
-//  NewAppAdvanced
+//  Movie-App
 //
 //  Created by Yaşar Duman on 18.10.2023.
 //
@@ -45,8 +45,8 @@ class RegisterVC: UIViewController {
         
         HeadLabel.anchor(top: view.topAnchor,
                          leading: view.leadingAnchor,
-                         padding: .init(top: 80, left: 20, bottom: 0, right: 0)
-        )
+                         padding: .init(top: 80, left: 20, bottom: 0, right: 0))
+        
     }
     
     private func configureTextField() {
@@ -54,28 +54,23 @@ class RegisterVC: UIViewController {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 40, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50)
-                              
-                              
-        )
+                              size: .init(width: 0, height: 50))
+        
         
         emailTextField.anchor(top: userNameTextField.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50)
-                              
-                              
-        )
+                              size: .init(width: 0, height: 50))
+        
 
         
         passwordTextField.anchor(top: emailTextField.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50)
-                              
-        )
+                              size: .init(width: 0, height: 50))
+        
         
         repasswordTextField.placeholder = "Repassword"
            
@@ -83,9 +78,8 @@ class RegisterVC: UIViewController {
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
                               padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50)
-                              
-        )
+                              size: .init(width: 0, height: 50))
+        
 
     }
     
@@ -96,8 +90,8 @@ class RegisterVC: UIViewController {
                             leading: view.leadingAnchor,
                             trailing: view.trailingAnchor,
                             padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                            size: .init(width: 0, height: 50)
-        )
+                            size: .init(width: 0, height: 50))
+        
         signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
        
     }
@@ -113,8 +107,7 @@ class RegisterVC: UIViewController {
         infoLabel.text = "Already have an account?"
 
         stackView.anchor(top: signUpButton.bottomAnchor,
-                         padding: .init(top: 5, left: 0, bottom: 0, right: 0)
-        )
+                         padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         
         stackView.centerXInSuperview()
         
@@ -124,10 +117,8 @@ class RegisterVC: UIViewController {
     
     // MARK: - Action
     @objc private func didTapSignUp() {
+       
         //Email & Password Validation
-        
-        //Email & Password Validation
-        
         guard let userName = userNameTextField.text,
               let email = emailTextField.text,
               let password = passwordTextField.text,

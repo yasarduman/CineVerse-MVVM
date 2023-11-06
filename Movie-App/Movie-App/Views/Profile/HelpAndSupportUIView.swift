@@ -9,6 +9,7 @@ import UIKit
 
 
 class HelpAndSupportUIView: UIView {
+    // MARK: - UI Elements
     lazy var containerView : UIView = {
         let container = UIView()
         container.backgroundColor = .secondarySystemBackground
@@ -45,8 +46,10 @@ class HelpAndSupportUIView: UIView {
         return image
     }()
     
+    // MARK: - Properties
     var userEmail: String?
     
+    // MARK: - Initializers
     init(userName:String, userImageName: String ,userEmail: String) {
        super.init(frame: .zero)
        self.userName.text = userName
@@ -60,6 +63,7 @@ class HelpAndSupportUIView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - UI Configuration
     private func configureUI(){
         configureContainer()
         configureuserImage()
@@ -108,12 +112,4 @@ class HelpAndSupportUIView: UIView {
         sendImage.centerYInSuperview()
         
     }
-    
-
-}
-
-
-
-#Preview{
-    HelpAndSupportVC()
 }

@@ -14,9 +14,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
+
         guard let windowScen = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScen.coordinateSpace.bounds)
+        
+        
+        // MARK: - DarkMode
+        let isDarkModeOn = UserDefaults.standard.bool(forKey: "DarkMode")
+        applyDarkMode(isDarkModeOn)
+        
+        
         window?.windowScene = windowScen
         let nav = UINavigationController(rootViewController: LoginVC())
         window?.rootViewController = nav
@@ -30,6 +37,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.makeKeyAndVisible()
     }
+    
+    // MARK: - DarkMode
+    func applyDarkMode(_ isDarkModeOn: Bool) {
+           if isDarkModeOn {
+               if #available(iOS 13.0, *) {
+                   window?.overrideUserInterfaceStyle = .dark
+               }
+           } else {
+               if #available(iOS 13.0, *) {
+                   window?.overrideUserInterfaceStyle = .light
+               }
+           }
+       }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

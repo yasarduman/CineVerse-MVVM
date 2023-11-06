@@ -40,7 +40,7 @@ extension UIView{
         
         // MARK: - Trailing Anchor
         if let trailing = trailing {
-            anchoredConstraints.trailing = trailingAnchor.constraint(equalTo: trailing, constant: -padding.right)
+            anchoredConstraints.trailing = trailingAnchor.constraint(equalTo: trailing, constant: -padding.right )
         }
         
         // MARK: - Width Anchor

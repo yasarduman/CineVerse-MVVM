@@ -8,9 +8,10 @@
 import UIKit
 
 class SettingTableViewCell: UITableViewCell {
-    
+    // MARK: - Properties
     static let identifier = "SettingTableViewCell"
     
+    // MARK: - UI Elements
     private let iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -33,6 +34,7 @@ class SettingTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(label)
@@ -47,6 +49,7 @@ class SettingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -65,10 +68,9 @@ class SettingTableViewCell: UITableViewCell {
         label.anchor(leading: iconContainer.trailingAnchor,
                      padding: .init(top: 0, left: 20, bottom: 0, right: 0))
         label.centerYInSuperview()
-        
-        
     }
     
+    // MARK: - Prepare For Reuse
     override func prepareForReuse() {
         super.prepareForReuse()
         iconImageView.image = nil
@@ -76,6 +78,7 @@ class SettingTableViewCell: UITableViewCell {
         iconContainer.backgroundColor = nil
     }
     
+    // MARK: - Configure Cell
     public func configure(with model: SettingsOption){
         label.text = model.title
         iconImageView.image = model.icon

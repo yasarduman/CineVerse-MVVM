@@ -36,10 +36,8 @@ class MovieButton: UIButton {
         configuration = .tinted()
         configuration?.cornerStyle = .medium
         translatesAutoresizingMaskIntoConstraints = false
-        
-    
-
     }
+    
     
     func set(bgColor: UIColor ,color: UIColor, title: String, fontSize: FontSize, systemImageName: String?,cornerStyle: UIButton.Configuration.CornerStyle?) {
         configuration?.baseBackgroundColor = bgColor
@@ -60,7 +58,5 @@ class MovieButton: UIButton {
         case .small:
             self.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
         }
-    
     }
-    
 }

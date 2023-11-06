@@ -9,14 +9,17 @@
 import UIKit
 
 protocol CollectionViewTableViewCellDelegate: AnyObject {
-    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: MoviePreviewViewModel, movieModel: Movie)
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: MoviePreviewModel, movieModel: Movie)
 }
 
 class CollectionViewTableViewCell: UITableViewCell {
+    // MARK: - Properties
     weak var delegate: CollectionViewTableViewCellDelegate?
     static let identifier = "CollectionViewTableViewCell"
-    private var movies: [Movie] = [Movie]()
+    private var movies: [Movie] = []
+
     
+    // MARK: - UI Elements
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height: 200)
@@ -26,6 +29,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         return collectionView
     }()
     
+    // MARK: - Initialization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(collectionView)
@@ -38,11 +42,13 @@ class CollectionViewTableViewCell: UITableViewCell {
         fatalError()
     }
     
+    // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
     }
     
+    // MARK: - Configuration
     public func configure(with movie: [Movie]) {
         self.movies = movie
         
@@ -52,6 +58,7 @@ class CollectionViewTableViewCell: UITableViewCell {
     }
 }
 
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -80,18 +87,15 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let movieName = movie.original_title ?? movie.original_name else {
             return
         }
-        
-
+    
         Task{
             do {
                 let moviePreviewModel  = try await APICaller.shared.getMovie(with: movieName + " trailer")
-                let movie = self.movies[indexPath.row]
                 guard let movieOverview = movie.overview else {
                     return
                 }
              
-               
-                let viewModel = MoviePreviewViewModel(title: movieName, youtubeView: moviePreviewModel, movieOverview: movieOverview, release_date: movie.release_date ?? movie.first_air_date)
+                let viewModel = MoviePreviewModel(title: movieName, youtubeView: moviePreviewModel, movieOverview: movieOverview, release_date: movie.release_date ?? movie.first_air_date)
                 self.delegate?.collectionViewTableViewCellDidTapCell(self, viewModel: viewModel, movieModel: movie)
                
             }catch {
@@ -100,11 +104,7 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
                 } else {
                    
                 }
-                
             }
         }
-        
-        
-        
     }
 }

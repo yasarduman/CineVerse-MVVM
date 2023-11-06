@@ -15,9 +15,11 @@ protocol HeroHeaderUIViewProtocol: AnyObject {
 
 
 class HeroHeaderUIView: UIView {
-
-    //MARK: - UI Elements
+    // MARK: - Properties
+    weak var delegate: HeroHeaderUIViewProtocol?
+    var movie: Movie?
     
+    //MARK: - UI Elements
     // Movie Name Label
     private lazy var movieName: UILabel = {
         let label = UILabel()
@@ -80,9 +82,7 @@ class HeroHeaderUIView: UIView {
 
     let gradientLayer = CAGradientLayer()
     
-    weak var delegate: HeroHeaderUIViewProtocol?
-    
-    var movie: Movie?
+  
 
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -177,10 +177,5 @@ class HeroHeaderUIView: UIView {
                 self.movieName.text = model.original_title ?? model.original_name
             }
         }
-
     }
-}
-
-#Preview{
-    HeroHeaderUIView()
 }

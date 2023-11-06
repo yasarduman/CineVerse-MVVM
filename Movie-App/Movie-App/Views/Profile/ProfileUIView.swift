@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
-    
+    //MARK: - UI Elements
     lazy var containerImage: UIView = {
         let container = UIView()
         container.layer.cornerRadius = 60
@@ -16,8 +16,6 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         container.layer.shadowOffset = CGSize(width: 0, height: 0)
         container.layer.shadowOpacity = 0.9
         container.layer.shadowRadius = 8
-    
-        
         return container
     }()
     
@@ -36,8 +34,6 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         let image = UIImageView()
         let config = UIImage.SymbolConfiguration(weight: .bold)
         image.image = UIImage(systemName: "pencil.circle.fill", withConfiguration: config)
-     
-        
         image.tintColor = MovieColor.playButonBG
         return image
     }()
@@ -58,7 +54,8 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         label.textColor = .secondaryLabel
         return label
     }()
- 
+    
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureContainerImage()
@@ -70,6 +67,7 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         fatalError("init(coder:) has not been implemented")
     }
     
+  // MARK: - UI Configuration
     private func configureContainerImage(){
         addSubview(containerImage)
         containerImage.anchor(size: .init(width: 120, height: 120))
@@ -83,7 +81,6 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         addSubview(userAddImageIcon)
         
         userImage.fillSuperview()
-        
         
         userAddImageIcon.anchor(bottom: userImage.bottomAnchor,
                                 trailing: userImage.trailingAnchor,
@@ -101,8 +98,4 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
                         leading: userImage.trailingAnchor,
                         padding: .init(top: 40, left: 20, bottom: 0, right: 0))
     }
-  
-  
-    
 }
-

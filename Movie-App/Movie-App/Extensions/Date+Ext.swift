@@ -1,8 +1,8 @@
 //
 //  Date+Ext.swift
-//  NewAppAdvanced
+//  Movie-App
 //
-//  Created by Erislam Nurluyol on 28.10.2023.
+//  Created by Yaşar Duman on 30.10.2023.
 //
 
 import Foundation

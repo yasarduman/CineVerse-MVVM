@@ -11,7 +11,8 @@ import Foundation
 struct Constants {
     static let API_KEY = "9f34b030b7187aab01fbc340d02601ee"
     static let baseURL = "https://api.themoviedb.org"
-    static let YoutubeAPI_KEY = "AIzaSyCPmahsG3SOBFZ7TD5bYVfKygfIrxpbjnE"
+    //static let YoutubeAPI_KEY = "AIzaSyCPmahsG3SOBFZ7TD5bYVfKygfIrxpbjnE"
+    static let YoutubeAPI_KEY = "AIzaSyBaWHkGN5wJs9rJzawpDJ40cNV1C7FYsC4"
     static let YoutubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
@@ -176,5 +177,4 @@ class APICaller {
             throw MovieError.invalidData
         }
     }
-    
 }

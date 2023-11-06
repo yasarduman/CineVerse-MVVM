@@ -11,7 +11,7 @@ import SDWebImage
 class MovieCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
-    static let identifier = "TitleCollectionViewCell"
+    static let identifier = "MovieCollectionViewCell"
     
     // MARK: - UI Elements
     private lazy var posterImageView: UIImageView = {
@@ -22,7 +22,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     private lazy var imdbButton = MovieButton(bgColor: .red,
                                               color:   MovieColor.playButonBG,
-                                              title: "Play",
+                                              title: "",
                                               cornerStyle: .capsule)
     
     // MARK: - Initializers
@@ -36,6 +36,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         fatalError()
     }
     
+    // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         posterImageView.frame = contentView.bounds

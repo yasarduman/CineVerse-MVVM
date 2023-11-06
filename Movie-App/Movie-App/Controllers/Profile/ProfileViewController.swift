@@ -8,9 +8,12 @@
 
 import UIKit
 import FirebaseAuth
+import SDWebImage
 
 class ProfileViewController : UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     // MARK: - Properties
+    lazy var vm = ProfileVM()
+    
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
@@ -41,6 +44,13 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
         headerView?.userImage.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooeseImage))
         headerView?.userImage.addGestureRecognizer(gestureRecognizer)
+        
+        vm.fetchUserPhoto { url in
+            guard let url = URL(string: url) else {
+                return
+            }
+            self.headerView?.userImage.sd_setImage(with: url, completed: nil)
+        }
     }
      
     // MARK: - Configure UI
@@ -58,11 +68,13 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
             tableView.separatorStyle = .none
         }
     
+    let isDarkModeOn = UserDefaults.standard.bool(forKey: "DarkMode")
+      
     private func configureTableViewCell() {
         models.append(Section(title: "", options: [
             .switchCell(model: SettingsSwitchOption(title: "Dark Mode", icon: UIImage(systemName: "moon.stars"), iconBackgrondColor: MovieColor.goldColor, handler: {
-                // Handle switch optio
-            }, isOn: true)),
+                
+            }, isOn: isDarkModeOn)),
             
             .staticCell(model: SettingsOption(title: "Change Password", icon: UIImage(systemName: "exclamationmark.lock.fill"), iconBackgrondColor: MovieColor.goldColor, handler: {
                 let vc = ChangePasswordVC()
@@ -97,8 +109,8 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         headerView?.userImage.image = info[.originalImage] as? UIImage
-       //vm.uploadUserPhoto(imageData: imageView.image!)
-       
+        vm.uploadUserPhoto(imageData: (headerView?.userImage.image!)!)
+        self.dismiss(animated: true)
 }
 }
 

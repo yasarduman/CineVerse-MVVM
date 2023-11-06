@@ -1,6 +1,6 @@
 //
-//  GFAlertVC.swift
-//  GithubFollowers
+//  AlertVC.swift
+// //  Movie-App
 //
 //  Created by Yaşar Duman on 4.10.2023.
 //

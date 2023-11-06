@@ -1,9 +1,10 @@
 //
 //  YoutubeSearchResponse.swift
-//  Netflix Clone
+// Movie-App
 //
-//  Created by Amr Hossam on 06/01/2022.
+//  Created by Yaşar Duman on 30.10.2023.
 //
+
 
 import Foundation
 

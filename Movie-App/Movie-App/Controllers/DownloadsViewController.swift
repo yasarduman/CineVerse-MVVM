@@ -12,6 +12,7 @@ class DownloadsViewController: UIViewController {
     let vm: DownloadsVM? = DownloadsVM()
     var movies: [Movie] = []
     
+    // MARK: - UI Elements
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -19,7 +20,7 @@ class DownloadsViewController: UIViewController {
         return tableView
     }()
  
-    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = MovieColor.playButonBG
@@ -36,7 +37,7 @@ class DownloadsViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.frame
     }
-    
+    // MARK: - Helper Functions
     private func configureTableView(){
         view.addSubview(tableView)
         tableView.delegate = self
@@ -44,7 +45,7 @@ class DownloadsViewController: UIViewController {
         tableView.backgroundColor = .secondarySystemBackground
     }
     
-    //MARK: - Helper Functions
+
     private func refreshUI() {
         vm!.fetchFavorites { movies in
             self.movies = movies
@@ -72,7 +73,7 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
            let imdbScore = movie.vote_average,
            let movieDate = movie.release_date ?? movies[indexPath.row].first_air_date {
             
-         cell.configure(with: MovieViewModel(titleName: movieName, posterURL: posterURL, vote_average: imdbScore, release_date: movieDate))
+         cell.configure(with: MovieCellModel(titleName: movieName, posterURL: posterURL, vote_average: imdbScore, release_date: movieDate))
         }
   
         return cell
@@ -88,13 +89,12 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         
-
         Task{
             do {
                 let moviePreveiwModel  = try await APICaller.shared.getMovie(with: movieName)
           
                 let vc = MoviePreviewViewController()
-                vc.configure(with: MoviePreviewViewModel(title: movieName, youtubeView: moviePreveiwModel, movieOverview: movie.overview ?? "", release_date: movie.release_date ?? movie.first_air_date),moviModelIsFavori: movie)
+                vc.configure(with: MoviePreviewModel(title: movieName, youtubeView: moviePreveiwModel, movieOverview: movie.overview ?? "", release_date: movie.release_date ?? movie.first_air_date),moviModelIsFavori: movie)
                 
                 self.navigationController?.pushViewController(vc, animated: true)
 
@@ -104,7 +104,6 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
                 } else {
                     presentAlert(title: "Error!", message: error.localizedDescription, buttonTitle: "OK")
                 }
-                
             }
         }
     }
@@ -122,7 +121,4 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
-    
-    
 }
-

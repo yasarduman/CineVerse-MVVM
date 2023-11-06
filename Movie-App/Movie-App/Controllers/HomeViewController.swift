@@ -13,8 +13,6 @@ protocol HomeViewInterface: AnyObject {
     func configureHeaderView(with moviePath: [Movie])
     func showLoadingIndicator()
     func dismissLoadingIndicator()
-    
-    
 }
 
 class HomeViewController: UIViewController{
@@ -48,7 +46,6 @@ class HomeViewController: UIViewController{
         super.viewDidLoad()
         configureUI()
         configureTableView()
-      
         
         viewModel.view = self
         viewModel.getMovies()
@@ -70,6 +67,7 @@ class HomeViewController: UIViewController{
         navigationController?.navigationBar.tintColor = MovieColor.playButonBG
     }
     
+    // MARK: - Configure TableView
     private func configureTableView() {
         configureHeaderView()
         view.addSubview(homeFeedTable)
@@ -79,15 +77,12 @@ class HomeViewController: UIViewController{
         homeFeedTable.tableHeaderView = headerView
         homeFeedTable.backgroundColor = .tertiarySystemGroupedBackground
         homeFeedTable.contentInsetAdjustmentBehavior = .never
-   
-       
     }
     
     // MARK: - Configure HeaderView
     private func configureHeaderView() {
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         headerView?.delegate = self
-      
     }
      
     // MARK: - Data Update
@@ -170,18 +165,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionTitles[section]
     }
-    
 }
 
 // MARK: - HomeViewInterface
 extension HomeViewController: HomeViewInterface {
-  
-    
     //Random Image
     func configureHeaderView(with moviePath: [Movie]) {
         let selectedTitle = moviePath.randomElement()
         headerView?.configure(with: selectedTitle!)
-      
     }
     
     // Saves data and updates the table.
@@ -202,10 +193,9 @@ extension HomeViewController: HomeViewInterface {
     }
 }
 
+// MARK: - CollectionView DidSelect
 extension HomeViewController: CollectionViewTableViewCellDelegate {
-
-    
-    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: MoviePreviewViewModel, movieModel: Movie) {
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: MoviePreviewModel, movieModel: Movie) {
         DispatchQueue.main.async { [weak self] in
             let vc = MoviePreviewViewController()
             vc.configure(with: viewModel,moviModelIsFavori: movieModel)
@@ -213,10 +203,7 @@ extension HomeViewController: CollectionViewTableViewCellDelegate {
         }
     }
 }
-
-
-
-
+// MARK: - HeroHeaderUIViewProtocol
 extension HomeViewController: HeroHeaderUIViewProtocol {
     func showDetail(movie: Movie) {
         let vc = MoviePreviewViewController()
@@ -227,8 +214,7 @@ extension HomeViewController: HeroHeaderUIViewProtocol {
                     return
                 }
              
-               
-                let viewModel = MoviePreviewViewModel(title: movie.original_title!,
+                let viewModel = MoviePreviewModel(title: movie.original_title!,
                                                       youtubeView: moviePreviewModel,
                                                       movieOverview: movieOverview,
                                                       release_date: movie.release_date ?? movie.first_air_date)
@@ -239,13 +225,9 @@ extension HomeViewController: HeroHeaderUIViewProtocol {
                 if let movieError = error as? MovieError {
                     print(movieError.rawValue)
                 } else {
-                   
+                    presentAlert(title: "Error!", message: error.localizedDescription, buttonTitle: "OK")
                 }
-                
             }
-        }
-        
+        } 
     }
-    
-    
 }
