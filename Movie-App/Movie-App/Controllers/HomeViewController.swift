@@ -13,9 +13,12 @@ protocol HomeViewInterface: AnyObject {
     func configureHeaderView(with moviePath: [Movie])
     func showLoadingIndicator()
     func dismissLoadingIndicator()
+    
+    
 }
 
 class HomeViewController: UIViewController{
+  
     // MARK: - Properties
     private lazy var viewModel = HomeVM()
     
@@ -45,40 +48,45 @@ class HomeViewController: UIViewController{
         super.viewDidLoad()
         configureUI()
         configureTableView()
-     
+      
+        
         viewModel.view = self
         viewModel.getMovies()
     }
-    
+    // MARK: - LayoutSubviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        homeFeedTable.frame = view.frame
         // Güvenli alanın altındaki boşluğu hesaplayın
         let safeAreaBottom = view.safeAreaInsets.bottom
         //SafeAreaKadar Boşluk bıraktık
         homeFeedTable.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: safeAreaBottom, right: 0)
-        homeFeedTable.frame = view.frame
+  
     }
     
     // MARK: - UI Configuration
     private func configureUI() {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        view.addSubview(homeFeedTable)
+        navigationController?.navigationBar.topItem?.backButtonTitle = "Home"
+        navigationController?.navigationBar.tintColor = MovieColor.playButonBG
     }
     
     private func configureTableView() {
+        configureHeaderView()
+        view.addSubview(homeFeedTable)
+        
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
-        
-        configureHeaderView()
-        
         homeFeedTable.tableHeaderView = headerView
         homeFeedTable.backgroundColor = .tertiarySystemGroupedBackground
         homeFeedTable.contentInsetAdjustmentBehavior = .never
+   
+       
     }
     
     // MARK: - Configure HeaderView
     private func configureHeaderView() {
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
+      
     }
      
     // MARK: - Data Update
@@ -118,6 +126,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as? CollectionViewTableViewCell else {
             return UITableViewCell()
         }
+        cell.delegate = self
+        
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
             cell.configure(with: trendingMovies)
@@ -160,21 +170,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return sectionTitles[section]
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let defaultOffset = view.safeAreaInsets.top
-        let offset = scrollView.contentOffset.y + defaultOffset
-        
-        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
-    }
 }
 
 // MARK: - HomeViewInterface
 extension HomeViewController: HomeViewInterface {
+  
+    
     //Random Image
     func configureHeaderView(with moviePath: [Movie]) {
         let selectedTitle = moviePath.randomElement()
         headerView?.configure(with: selectedTitle!)
+      
     }
+    
     // Saves data and updates the table.
     func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie]) {
         self.updateTable(with: movie, for: .TrendingMovies)
@@ -190,5 +198,17 @@ extension HomeViewController: HomeViewInterface {
     // Dismisses the loading indicator.
     func dismissLoadingIndicator() {
         dismissLoading()
+    }
+}
+
+extension HomeViewController: CollectionViewTableViewCellDelegate {
+
+    
+    func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: MoviePreviewViewModel, movieModel: Movie) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = MoviePreviewViewController()
+            vc.configure(with: viewModel,moviModelIsFavori: movieModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

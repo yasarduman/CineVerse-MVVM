@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,7 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScen = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScen.coordinateSpace.bounds)
         window?.windowScene = windowScen
-        window?.rootViewController = MainTabBarViewController()
+        let nav = UINavigationController(rootViewController: LoginVC())
+        window?.rootViewController = nav
+        
+        // MARK: - kullanıcı sürekli giriş yapmamsı için yapılan işlem kullanıcıyı hatırlama işlemi
+        if let currentUser = Auth.auth().currentUser {
+            let TabBar = MainTabBarViewController()
+            TabBar.modalPresentationStyle = .fullScreen
+            window?.rootViewController = TabBar
+        }
+        
         window?.makeKeyAndVisible()
     }
 

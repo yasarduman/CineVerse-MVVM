@@ -59,7 +59,7 @@ class DownloadTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.alignment = .leading
+        stackView.alignment = .center
         return stackView
     }()
     
@@ -67,7 +67,6 @@ class DownloadTableViewCell: UITableViewCell {
        let label = UILabel()
         label.text = "2023-09-13"
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.numberOfLines = 2
         label.textColor = .secondaryLabel
         return label
     }()
@@ -115,6 +114,11 @@ class DownloadTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        containerView.layer.shadowColor = UIColor.label.cgColor
     }
  
     // MARK: - UI Configiration

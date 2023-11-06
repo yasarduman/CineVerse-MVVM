@@ -8,11 +8,14 @@
 
 import UIKit
 
+
+
 class HeroHeaderUIView: UIView {
-    
+
     //MARK: - UI Elements
     
-    private lazy var moviName: UILabel = {
+    // Movie Name Label
+    private lazy var movieName: UILabel = {
         let label = UILabel()
         label.text = "MoviName"
         label.textColor = .label
@@ -20,6 +23,7 @@ class HeroHeaderUIView: UIView {
         return label
     }()
     
+    // Stack View for IMDb Rating
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -27,6 +31,8 @@ class HeroHeaderUIView: UIView {
         stackView.alignment = .center
         return stackView
     }()
+    
+    // IMDb Rating Label
     lazy var imdbLabel: UILabel = {
         let label = UILabel()
         label.text = "8.7"
@@ -34,6 +40,8 @@ class HeroHeaderUIView: UIView {
         label.font = UIFont.systemFont(ofSize: 25,weight: .bold)
         return label
     }()
+    
+    // IMDb Star Icon
     private lazy var imdbImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -43,36 +51,20 @@ class HeroHeaderUIView: UIView {
         return imageView
     }()
     
-    private lazy var playButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Play", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20,weight: .bold)
-        button.setTitleColor(.label, for: .normal)
-        button.setImage(UIImage(systemName: "arrowtriangle.right.fill"), for: UIControl.State.normal)
-        button.semanticContentAttribute = .forceLeftToRight
-        button.sizeToFit()
-        button.tintColor = .label
-        button.backgroundColor    = MovieColor.playButonBG
-        button.layer.cornerRadius = 5
-        return button
-    }()
-    
-    private lazy var downloadButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Download", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 20,weight: .bold)
-        button.setTitleColor(.label, for: .normal)
+    // Play Button
+    private let playButton = MovieButton(bgColor: MovieColor.playButonBG,
+                                         color:  MovieColor.playButonBG,
+                                             title: "Play",
+                                             systemImageName: "arrowtriangle.right.fill",
+                                             cornerStyle: .small)
+    // Download Button
+    private let downloadButton = MovieButton(bgColor: .systemRed,
+                                             color:  .systemRed,
+                                             title: "Download",
+                                             systemImageName: "arrow.down.to.line",
+                                             cornerStyle: .small)
 
-        button.setImage(UIImage(systemName: "plus"), for: UIControl.State.normal)
-        button.semanticContentAttribute = .forceLeftToRight
-        button.sizeToFit()
-        button.tintColor = .label
-        button.layer.borderColor = UIColor.label.cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        return button
-    }()
-    
+    // Hero Image View
     private lazy var heroImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -80,22 +72,19 @@ class HeroHeaderUIView: UIView {
         imageView.image = UIImage(named: "heroImage")
         return imageView
     }()
+    // Gradient Layer
+
     let gradientLayer = CAGradientLayer()
-   
-    
-    
+
     //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(heroImageView)
         addGradient()
-        addSubview(playButton)
-        addSubview(downloadButton)
-        addSubview(moviName)
-        addSubview(stackView)
+        addSubviewsExt(playButton, downloadButton, movieName, stackView)
         stackView.addArrangedSubview(imdbLabel)
         stackView.addArrangedSubview(imdbImageView)
-        
+
         ConfigureUI()
     }
     
@@ -103,12 +92,16 @@ class HeroHeaderUIView: UIView {
         fatalError()
     }
     
+    // MARK: - LayoutSubviews
     override func layoutSubviews() {
         super.layoutSubviews()
         heroImageView.frame = bounds
-
+        gradientLayer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.tertiarySystemGroupedBackground.cgColor
+        ]
+        downloadButton.layer.borderColor = UIColor.label.cgColor
     }
-  
     private func addGradient() {
         gradientLayer.colors = [
             UIColor.clear.cgColor,
@@ -117,6 +110,7 @@ class HeroHeaderUIView: UIView {
         gradientLayer.frame = bounds
         layer.addSublayer(gradientLayer)
     }
+ // MARK: - ConfigureUI
     private func ConfigureUI() {
         configurePlayButton()
         configureDownloadButton()
@@ -130,7 +124,6 @@ class HeroHeaderUIView: UIView {
                           padding: .init(top: 0, left: 20, bottom: 30, right: 0),
                           size: .init(width: 120, height: 46))
     }
-   
     
     private func configureDownloadButton() {
         downloadButton.anchor(leading: playButton.trailingAnchor,
@@ -140,18 +133,24 @@ class HeroHeaderUIView: UIView {
     }
     
     private func configuremoviName() {
-        moviName.anchor(leading:playButton.leadingAnchor,
+        movieName.anchor(leading:playButton.leadingAnchor,
                         bottom: playButton.topAnchor,
                         padding: .init(top: 0, left: 0, bottom: 20, right: 0))
     }
     
     private func configureStackView() {
-        stackView.anchor(leading: moviName.leadingAnchor,
-                         bottom: moviName.topAnchor,
+        stackView.anchor(leading: movieName.leadingAnchor,
+                         bottom: movieName.topAnchor,
                          padding: .init(top: 0, left: 0, bottom: 10, right: 0))
     }
     
-
+    @objc func playButtonTapped() {
+        DispatchQueue.main.async {
+            self.movieName.textColor = .red
+        }
+    }
+    
+// MARK: - UpdateData
     public func configure(with model: Movie) {
     
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(String(describing: model.poster_path!))") else {
@@ -160,18 +159,17 @@ class HeroHeaderUIView: UIView {
         
         heroImageView.sd_setImage(with: url, completed: nil)
         
-        //Number Formatter %.1f
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 1
-        
-        let doubleValue: Double = model.vote_average!
-        if numberFormatter.string(from: NSNumber(value: doubleValue)) != nil {
+        if let voteAverage = model.vote_average {
+            let formattedValue = String(format: "%.1f", voteAverage)
             DispatchQueue.main.async {
-                let formattedValue = String(format: "%.1f", doubleValue)
                 self.imdbLabel.text = formattedValue
-                self.moviName.text = model.original_name ?? model.original_title
+                self.movieName.text = model.original_title ?? model.original_name
             }
         }
+
     }
+}
+
+#Preview{
+    HeroHeaderUIView()
 }

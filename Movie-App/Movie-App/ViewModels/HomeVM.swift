@@ -22,11 +22,9 @@ protocol HomeVMInterface {
 
 final class HomeVM {
     weak var view: HomeViewInterface?
-    var loadingView: MovieDataLoadingVC?
-    
+  
     func showLoadingView() {
         view?.showLoadingIndicator()
-           
        }
     
     func hideLoadingView() {

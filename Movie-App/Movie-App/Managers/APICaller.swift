@@ -11,7 +11,7 @@ import Foundation
 struct Constants {
     static let API_KEY = "9f34b030b7187aab01fbc340d02601ee"
     static let baseURL = "https://api.themoviedb.org"
-    static let YoutubeAPI_KEY = "AIzaSyDqX8axTGeNpXRiISTGL7Tya7fjKJDYi4g"
+    static let YoutubeAPI_KEY = "AIzaSyCPmahsG3SOBFZ7TD5bYVfKygfIrxpbjnE"
     static let YoutubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
@@ -136,59 +136,45 @@ class APICaller {
     }
     
     
-    func search(with query: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
+    
+    func search(with query: String) async throws -> MovieResponse {
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {  throw MovieError.invalidUrl  }
         
-        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         guard let url = URL(string: "\(Constants.baseURL)/3/search/movie?api_key=\(Constants.API_KEY)&query=\(query)") else {
-            return
+            throw MovieError.invalidUrl
         }
+      
         
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-            guard let data = data, error == nil else {
-                return
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                throw MovieError.invalidResponse
             }
             
-            do {
-                let results = try JSONDecoder().decode(MovieResponse.self, from: data)
-                completion(.success(results.results))
-
-            } catch {
-                completion(.failure(MovieError.invalidData))
-            }
-
+            return try decoder.decode(MovieResponse.self, from: data)
+        } catch {
+            throw MovieError.invalidData
         }
-        task.resume()
     }
     
-    
-//    func getMovie(with query: String, completion: @escaping (Result<VideoElement, Error>) -> Void) {
-//        
-//
-//        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
-//        guard let url = URL(string: "\(Constants.YoutubeBaseURL)q=\(query)&key=\(Constants.YoutubeAPI_KEY)") else {return}
-//        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//            
-//            do {
-//                let results = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
-//                
-//                completion(.success(results.items[0]))
-//                
-//
-//            } catch {
-//                completion(.failure(error))
-//                print(error.localizedDescription)
-//            }
-//
-//        }
-//        task.resume()
-//    }
+    func getMovie(with query: String) async throws -> VideoElement {
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { throw MovieError.invalidUrl}
+        guard let url = URL(string: "\(Constants.YoutubeBaseURL)q=\(query)&key=\(Constants.YoutubeAPI_KEY)") else { throw MovieError.invalidUrl}
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                throw MovieError.invalidResponse
+            }
+            
+            let results = try JSONDecoder().decode(YoutubeSearchResponse.self, from: data)
+            
+             return results.items[0]
+        } catch {
+            throw MovieError.invalidData
+        }
+    }
     
 }
-
-
-
-
-

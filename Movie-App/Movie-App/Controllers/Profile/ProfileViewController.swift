@@ -7,8 +7,9 @@
 
 
 import UIKit
+import FirebaseAuth
 
-class ProfileViewController : UIViewController {
+class ProfileViewController : UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     // MARK: - Properties
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -28,11 +29,18 @@ class ProfileViewController : UIViewController {
         configureUI()
         configureHeaderView()
         tableView.tableHeaderView = headerView
+ 
     }
     
     // MARK: - Configure HeaderView
     private func configureHeaderView() {
         headerView = ProfileUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 180))
+        
+     
+        //image tıklana bilir hale getirdik
+        headerView?.userImage.isUserInteractionEnabled = true
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooeseImage))
+        headerView?.userImage.addGestureRecognizer(gestureRecognizer)
     }
      
     // MARK: - Configure UI
@@ -57,16 +65,41 @@ class ProfileViewController : UIViewController {
             }, isOn: true)),
             
             .staticCell(model: SettingsOption(title: "Change Password", icon: UIImage(systemName: "exclamationmark.lock.fill"), iconBackgrondColor: MovieColor.goldColor, handler: {
-                
+                let vc = ChangePasswordVC()
+                self.navigationController?.pushViewController(vc, animated: true)
             })),
             .staticCell(model: SettingsOption(title: "Help and Support", icon: UIImage(systemName: "questionmark.circle"), iconBackgrondColor: MovieColor.goldColor, handler: {
-              
+                let vc = HelpAndSupportVC()
+                self.navigationController?.pushViewController(vc, animated: true)
             })),
             .staticCell(model: SettingsOption(title: "Log out", icon: UIImage(systemName: "rectangle.portrait.and.arrow.forward"), iconBackgrondColor: MovieColor.goldColor, handler: {
-                
+                do {
+                    try Auth.auth().signOut()
+                    let loginVC = LoginVC()
+                    let nav = UINavigationController(rootViewController: loginVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    self.present(nav, animated: true, completion: nil)
+                    
+                } catch  {
+                    print(error.localizedDescription )
+                }
             })),
         ]))
     }
+    
+    // MARK: - Action
+    //image Func
+    @objc func chooeseImage() {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.sourceType = .photoLibrary
+        present(pickerController, animated: true)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        headerView?.userImage.image = info[.originalImage] as? UIImage
+       //vm.uploadUserPhoto(imageData: imageView.image!)
+       
+}
 }
 
 // MARK: - Table View Data Source
@@ -117,8 +150,4 @@ extension ProfileViewController: UITableViewDelegate{
         // Return the desired row height
         return 60.0
     }
-}
-
-#Preview{
-    ProfileViewController()
 }

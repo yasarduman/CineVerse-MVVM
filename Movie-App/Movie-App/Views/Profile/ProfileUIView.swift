@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileUIView: UIView {
+class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     
     lazy var containerImage: UIView = {
         let container = UIView()
@@ -16,6 +16,8 @@ class ProfileUIView: UIView {
         container.layer.shadowOffset = CGSize(width: 0, height: 0)
         container.layer.shadowOpacity = 0.9
         container.layer.shadowRadius = 8
+    
+        
         return container
     }()
     
@@ -99,7 +101,8 @@ class ProfileUIView: UIView {
                         leading: userImage.trailingAnchor,
                         padding: .init(top: 40, left: 20, bottom: 0, right: 0))
     }
+  
+  
+    
 }
-#Preview{
-    ProfileViewController()
-}
+

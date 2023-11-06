@@ -19,5 +19,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Choose Photo for profile picture</string>
 </dict>
 </plist>
