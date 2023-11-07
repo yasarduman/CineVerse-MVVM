@@ -1,2 +1,2 @@
 # Movie-App
-MVVM
+Built as a mobile app, this platform serves you with 5 different categories in the movie universe including trending movies, trending TV, popular movies, upcoming movies, Top rated. It seamlessly retrieves movies from TMDB through API integration and provides users with the ease of navigating the movie universe, watching movie trailers, adding and removing movies to favorites, searching for movies, and looking at the IMDB score. Designed with MVVM architecture and Clean Architecture, the application offers users a seamless approach to getting information about movies whenever they want.
