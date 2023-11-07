@@ -28,7 +28,8 @@ This app is built with the help of the following libraries and dependencies:
 - Firebase (version 10.17.0) 🔥
 - SDWebImage (version 5.18.4) 🖼️
 - Lottie (version 4.3.3) 🎮
-## Screenshots
+  
+## Screenshots📱
 
 | On Boarding | Login | Register | Forgot Password |
 | --- | --- | --- | --- |
