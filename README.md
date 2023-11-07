@@ -36,9 +36,11 @@ This app is built with the help of the following libraries and dependencies:
 
 | Home | Movie Detail | Search | Search Result |
 | --- | --- | --- | --- |
-| <img src="https://github.com/duman011/CineVerse-App/assets/81991720/b962ea85-abec-45d4-956f-ac63fa64e0b4" alt="Home Page" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/c36c8565-b823-4ac2-9fe5-e6e2ce3bf39c" alt="MovieDetail" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/62bc8f6f-092a-4a85-8bd9-3a915d9193c0" alt="SearchPage" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/5f770cdd-89dc-4914-a23a-24baf660e0e5" alt="ForgotPassword" width="100%"/> |
+| <img src="https://github.com/duman011/CineVerse-App/assets/81991720/b962ea85-abec-45d4-956f-ac63fa64e0b4" alt="HomePage" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/c36c8565-b823-4ac2-9fe5-e6e2ce3bf39c" alt="MovieDetail" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/62bc8f6f-092a-4a85-8bd9-3a915d9193c0" alt="SearchPage" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/5f770cdd-89dc-4914-a23a-24baf660e0e5" alt="ForgotPassword" width="100%"/> |
 
-
+| Download | User Profile | Reset Password | Help and Support |
+| --- | --- | --- | --- |
+| <img src="https://github.com/duman011/CineVerse-App/assets/81991720/cf1d33e1-076a-41cb-a76c-8a84db138f79" alt="DownloadPage" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/84eb1694-81d9-4579-ab7c-f1177a720d48" alt="UserProfile" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/d6e02e03-1e48-4658-afd5-cba65ddafc70" alt="ResetPassword" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/5c408580-96ab-4a68-8838-858658041eff" alt="HelpAndSupport" width="100%"/> |
 
 
 
