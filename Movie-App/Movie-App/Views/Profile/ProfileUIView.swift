@@ -43,6 +43,7 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         label.text = "Yaşar DUMAN"
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .label
+    
         return label
     }()
     
@@ -52,6 +53,7 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
         label.text = "Tekrardan Hoşgeldin Yaşar 🎉"
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .secondaryLabel
+        label.numberOfLines = 0 
         return label
     }()
     
@@ -96,6 +98,7 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
                         padding: .init(top: 20, left: 20, bottom: 0, right: 0))
         userMesage.anchor(top: userName.topAnchor,
                         leading: userImage.trailingAnchor,
+                          trailing: trailingAnchor,
                         padding: .init(top: 40, left: 20, bottom: 0, right: 0))
     }
 }

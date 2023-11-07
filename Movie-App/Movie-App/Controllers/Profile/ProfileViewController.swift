@@ -50,6 +50,20 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
                 return
             }
             self.headerView?.userImage.sd_setImage(with: url, completed: nil)
+      
+        }
+        
+        vm.fetchUserName { userName in
+            self.headerView?.userName.text = userName
+            
+            //Flitered userName
+            let nameSurname = userName.components(separatedBy: " ")
+            if nameSurname.count >= 2 {
+                let userNamex = nameSurname[0]
+                self.headerView?.userMesage.text = "Tekrardan Hoşgeldin \(userNamex) 🎉"
+            } else {
+                print("Tekrardan Hoşgeldin 🎉")
+            }
         }
     }
      
