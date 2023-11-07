@@ -14,28 +14,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
-        guard let windowScen = (scene as? UIWindowScene) else { return }
-        window = UIWindow(frame: windowScen.coordinateSpace.bounds)
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
         
+         // MARK: - DarkMode
+         let isDarkModeOn = UserDefaults.standard.bool(forKey: "DarkMode")
+         applyDarkMode(isDarkModeOn)
+    
+        // MARK: - onboardingVC
+        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+        // Uygulama ilk kez açılıyorsa, onboarding ekranını göster
         
-        // MARK: - DarkMode
-        let isDarkModeOn = UserDefaults.standard.bool(forKey: "DarkMode")
-        applyDarkMode(isDarkModeOn)
+        if !hasLaunchedBefore {
+            let onboardingVC = OnboardingVC()
+            onboardingVC.modalPresentationStyle = .fullScreen
+            window?.rootViewController = onboardingVC
+            
+            UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+        } else {
+            let loginVC = LoginVC()
+            let nav = UINavigationController(rootViewController: loginVC)
+            nav.modalPresentationStyle = .fullScreen
+            window?.rootViewController = nav
+        }
         
-        
-        window?.windowScene = windowScen
-        let nav = UINavigationController(rootViewController: LoginVC())
-        window?.rootViewController = nav
         
         // MARK: - kullanıcı sürekli giriş yapmamsı için yapılan işlem kullanıcıyı hatırlama işlemi
-        if let currentUser = Auth.auth().currentUser {
+        if Auth.auth().currentUser != nil {
             let TabBar = MainTabBarViewController()
             TabBar.modalPresentationStyle = .fullScreen
             window?.rootViewController = TabBar
         }
-        
-        window?.makeKeyAndVisible()
+         self.window?.makeKeyAndVisible()
     }
     
     // MARK: - DarkMode

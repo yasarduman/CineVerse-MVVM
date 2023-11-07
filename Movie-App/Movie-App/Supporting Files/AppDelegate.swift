@@ -14,7 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        if UserDefaults.standard.value(forKey: "DarkMode") == nil {
+            // Dark Mode anahtarını başlangıçta ayarlayın (örneğin, varsayılan olarak false)
+            UserDefaults.standard.set(true, forKey: "DarkMode")
+        }
+        
         FirebaseApp.configure()
         return true
     }

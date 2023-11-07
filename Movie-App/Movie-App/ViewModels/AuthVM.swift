@@ -1,8 +1,8 @@
 //
-//  LoginVM.swift
-//  NewAppAdvanced
+//  AuthVM.swift
+//  Movie-App
 //
-//  Created by Yaşar Duman on 15.10.2023.
+//  Created by Yaşar Duman on 31.10.2023.
 //
 
 
