@@ -1,8 +1,8 @@
 <h1 align="center">
-    CineVerse-App
+    CineVerse-App 🎬
 </h1>
 
-Built as a mobile app, this platform serves you with 5 different categories in the movie universe including trending movies, trending TV, popular movies, upcoming movies, Top rated. It seamlessly retrieves movies from TMDB through API integration and provides users with the ease of navigating the movie universe, watching movie trailers, adding and removing movies to favorites, searching for movies, and looking at the IMDB score. Designed with **MVVM** architecture and **Clean Architecture**, the application offers users a seamless approach to getting information about movies whenever they want.
+Built as a mobile app, this platform serves you with 5 different categories in the movie universe including trending movies, trending TV, popular movies, upcoming movies, Top rated. It seamlessly retrieves movies from TMDB through API integration and provides users with the ease of navigating the movie universe, watching movie trailers, adding and removing movies to favorites, searching for movies, and looking at the IMDB score. Designed with **MVVM** architecture and **Clean Architecture**, the application offers users a seamless approach to getting information about movies whenever they want. 🏆
 
 <img  align="right" width="315" src="https://github.com/duman011/CineVerse-App/assets/81991720/0fe87332-9c53-442c-860a-c576ed4b1e4f">
 
@@ -21,13 +21,13 @@ Built as a mobile app, this platform serves you with 5 different categories in t
 - [x] Search for movies 🔍 
 - [x] Check out IMDB scores 🌟 
 
-## Libraries
+## Libraries 📚
 
 This app is built with the help of the following libraries and dependencies:
 
-- Firebase (version 10.17.0)
-- SDWebImage (version 5.18.4)
-- Lottie (version 4.3.3)
+- Firebase (version 10.17.0) 🔥
+- SDWebImage (version 5.18.4) 🖼️
+- Lottie (version 4.3.3) 🎮
 ## Screenshots
 
 | On Boarding | Login | Register | Forgot Password |
@@ -41,6 +41,24 @@ This app is built with the help of the following libraries and dependencies:
 | Download | User Profile | Reset Password | Help and Support |
 | --- | --- | --- | --- |
 | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/cf1d33e1-076a-41cb-a76c-8a84db138f79" alt="DownloadPage" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/84eb1694-81d9-4579-ab7c-f1177a720d48" alt="UserProfile" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/d6e02e03-1e48-4658-afd5-cba65ddafc70" alt="ResetPassword" width="100%"/> | <img src="https://github.com/duman011/CineVerse-App/assets/81991720/5c408580-96ab-4a68-8838-858658041eff" alt="HelpAndSupport" width="100%"/> |
+
+
+
+## Video Preview 🎥                                                                      
+<div align="center">
+  <video src="https://github.com/duman011/CineVerse-App/assets/81991720/75bb852e-8462-4986-9af4-51af95957dbf" width="50%"  />
+</div>
+
+## Contact Me 📬
+
+If you have any questions, encounter issues, or want to provide feedback, please feel free to reach out to me via email at [01.yasarduman@gmail.com](mailto:01.yasarduman@gmail.com)
+
+
+
+
+
+
+
 
 
 
