@@ -37,8 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             nav.modalPresentationStyle = .fullScreen
             window?.rootViewController = nav
         }
-        
-        
+
         // MARK: - kullanıcı sürekli giriş yapmamsı için yapılan işlem kullanıcıyı hatırlama işlemi
         if Auth.auth().currentUser != nil {
             let TabBar = MainTabBarViewController()

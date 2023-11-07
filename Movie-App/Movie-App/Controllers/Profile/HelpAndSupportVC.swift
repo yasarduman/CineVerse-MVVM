@@ -24,11 +24,11 @@ class HelpAndSupportVC: UIViewController, MFMailComposeViewControllerDelegate {
     private var user1 = HelpAndSupportUIView(
         userName: "Yaşar Duman",
         userImageName: "userAvatar",
-        userEmail: "deneme@gmail.com")
+        userEmail: "01.yasarduman@gmail.com")
     private var user2 = HelpAndSupportUIView(
-        userName: "Eros Nurke",
+        userName: "Erislam Nurluyol",
         userImageName: "userAvatar",
-        userEmail: "deneme@gmail.com")
+        userEmail: "01.yasarduman@gmail.com")
     
     override func viewDidLoad() {
         super.viewDidLoad()

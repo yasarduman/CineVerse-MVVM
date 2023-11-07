@@ -35,7 +35,7 @@ class MovieTableViewCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Başlık glecek Inanıyorumdsadsdasda"
+        label.text = "Başlık glecek Inanıyorum"
         label.lineBreakMode = .byTruncatingTail
         label.numberOfLines = 1
         return label
