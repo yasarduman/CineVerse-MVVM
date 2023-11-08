@@ -2,7 +2,7 @@
     CineVerse-App 🎬
 </h1>
 
-Built as a mobile app, this platform serves you with 5 different categories in the movie universe including trending movies, trending TV, popular movies, upcoming movies, Top rated. It seamlessly retrieves movies from TMDB through API integration and provides users with the ease of navigating the movie universe, watching movie trailers, adding and removing movies to favorites, searching for movies, and looking at the IMDB score. Designed with **MVVM** architecture and **Clean Architecture**, the application offers users a seamless approach to getting information about movies whenever they want. 🏆
+Designed as a mobile application, this platform serves with 5 different categories in the movie universe: trending movies, trending TV, popular movies, upcoming movies, favorites. With API integration, it seamlessly retrieves movies from TMDB and provides users with the ease of navigating the movie universe, adding and removing movies to favorites, searching movies, looking at IMDB score and watching movie trailers thanks to **YouTube API**. Designed with **MVVM** architecture and **Clean Architecture**, the app offers users a seamless approach to get information about movies whenever they want. 🏆
 
 <img  align="right" width="315" src="https://github.com/duman011/CineVerse-App/assets/81991720/0fe87332-9c53-442c-860a-c576ed4b1e4f">
 
@@ -16,7 +16,7 @@ Built as a mobile app, this platform serves you with 5 different categories in t
 
 ### 📡 TMDB API Integration: 
 - [x] Explore the movie universe 🌐 
-- [x] Watch trailers 🎬 
+- [x] Watch trailers (**YouTube API**) 🎬 
 - [x] Add or ❤️ Remove movies 🗑️ from favorites
 - [x] Search for movies 🔍 
 - [x] Check out IMDB scores 🌟 
