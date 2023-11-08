@@ -13,14 +13,14 @@ import Firebase
 class LoginVC: UIViewController {
     // MARK: - Properties
     private let HeadLabel            = TitleLabel(textAlignment: .left, fontSize: 20)
-    private let emailTextField       = CustomTextField(fieldType: .email)
-    private let passwordTextField    = CustomTextField(fieldType: .password)
-    private let signInButton         = MovieButton( bgColor:MovieColor.playButonBG ,color: MovieColor.playButonBG , title: "Sign In", fontSize: .big)
+    private lazy var emailTextField       = CustomTextField(fieldType: .email)
+    private lazy var passwordTextField    = CustomTextField(fieldType: .password)
+    private lazy var signInButton         = MovieButton( bgColor:MovieColor.playButonBG ,color: MovieColor.playButonBG , title: "Sign In", fontSize: .big)
     private let infoLabel            = SecondaryTitleLabel(fontSize: 16)
-    private let newUserButton        = MovieButton( bgColor:.clear ,color: .label, title: "Sign Up.", fontSize: .small)
-    private let forgotPasswordButton = MovieButton( bgColor:.clear ,color: MovieColor.playButonBG , title: "Forgot password?", fontSize: .small)
+    private lazy var newUserButton        = MovieButton( bgColor:.clear ,color: .label, title: "Sign Up.", fontSize: .small)
+    private lazy var forgotPasswordButton = MovieButton( bgColor:.clear ,color: MovieColor.playButonBG , title: "Forgot password?", fontSize: .small)
     
-    private let stackView            = UIStackView()
+    private lazy var stackView            = UIStackView()
     private let authVM : AuthVM?     = AuthVM()
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
@@ -144,7 +144,7 @@ class LoginVC: UIViewController {
             if success {
                 self.presentAlert(title: "Alert!", message: "Entry Successful 🥳", buttonTitle: "Ok")
                 self.dismiss(animated: true) {
-                    // Daha sonra NewsTabBarController'ı sun
+                    
                     let tabBar = MainTabBarViewController()
                     tabBar.modalPresentationStyle = .fullScreen
                     self.present(tabBar, animated: true, completion: nil)

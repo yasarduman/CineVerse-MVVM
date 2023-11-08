@@ -1,8 +1,8 @@
 //
 //  ChangePasswordVC.swift
-//  NewAppAdvanced
+//  Movie-App
 //
-//  Created by Yaşar Duman on 20.10.2023.
+//  Created by Yaşar Duman on 30.10.2023.
 //
 
 import UIKit
@@ -10,10 +10,10 @@ import UIKit
 class ChangePasswordVC: UIViewController {
     
     // MARK: - Properties
-    private let HeadLabel            = TitleLabel(textAlignment: .left, fontSize: 20)
-    private let passwordTextField    = CustomTextField(fieldType: .password)
-    private let repasswordTextField  = CustomTextField(fieldType: .password)
-    private let resetButton          = MovieButton( bgColor: MovieColor.playButonBG ,color: MovieColor.playButonBG, title: "Reset", fontSize: .big)
+    private let HeadLabel                 = TitleLabel(textAlignment: .left, fontSize: 20)
+    private lazy var passwordTextField    = CustomTextField(fieldType: .password)
+    private lazy var repasswordTextField  = CustomTextField(fieldType: .password)
+    private lazy var resetButton          = MovieButton( bgColor: MovieColor.playButonBG ,color: MovieColor.playButonBG, title: "Reset", fontSize: .big)
     private let authVM : AuthVM?     = AuthVM()
     
     // MARK: - View Controller Lifecycle
@@ -36,8 +36,8 @@ class ChangePasswordVC: UIViewController {
         
         HeadLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          leading: view.leadingAnchor,
-                         padding: .init(top: 0, left: 20, bottom: 0, right: 0)
-        )
+                         padding: .init(top: 0, left: 20, bottom: 0, right: 0))
+        
     }
     
     private func configureTextField() {
@@ -46,17 +46,15 @@ class ChangePasswordVC: UIViewController {
                                  leading: view.leadingAnchor,
                                  trailing: view.trailingAnchor,
                                  padding: .init(top: 40, left: 20, bottom: 0, right: 20),
-                                 size: .init(width: 0, height: 50)
-        )
+                                 size: .init(width: 0, height: 50))
+        
         repasswordTextField.placeholder = "Confirm Password"
         
         repasswordTextField.anchor(top: passwordTextField.bottomAnchor,
                                    leading: view.leadingAnchor,
                                    trailing: view.trailingAnchor,
                                    padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                                   size: .init(width: 0, height: 50)
-                                   
-        )
+                                   size: .init(width: 0, height: 50))
     }
     
     private func configureResetButton(){
@@ -66,8 +64,8 @@ class ChangePasswordVC: UIViewController {
                            leading: view.leadingAnchor,
                            trailing: view.trailingAnchor,
                            padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                           size: .init(width: 0, height: 50)
-        )
+                           size: .init(width: 0, height: 50))
+        
         resetButton.addTarget(self, action: #selector(didTapResetButton), for: .touchUpInside)
     }
     

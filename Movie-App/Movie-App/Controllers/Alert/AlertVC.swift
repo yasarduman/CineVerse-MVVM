@@ -10,10 +10,10 @@ import UIKit
 class AlertVC: UIViewController {
     
     // MARK: - Properties
-    let containerView  = AlertContainerView()
-    let titleLabel     = TitleLabel(textAlignment: .center, fontSize: 20)
-    let messageLabel   = BodyLabel(textAlignment: .center)
-    let actionButton   = MovieButton(bgColor: .systemPink, color: .systemPink, title: "Ok", systemImageName: "checkmark.circle")
+    lazy var containerView  = AlertContainerView()
+    lazy var titleLabel     = TitleLabel(textAlignment: .center, fontSize: 20)
+    lazy var messageLabel   = BodyLabel(textAlignment: .center)
+    lazy var actionButton   = MovieButton(bgColor: .systemPink, color: .systemPink, title: "Ok", systemImageName: "checkmark.circle")
     
     var alertTitle: String?
     var message: String?
@@ -47,48 +47,42 @@ class AlertVC: UIViewController {
     
     // MARK: - UI Configuration
     func configureContainerView() {
-
-        NSLayoutConstraint.activate([
-            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            containerView.widthAnchor.constraint(equalToConstant: 280),
-            containerView.heightAnchor.constraint(equalToConstant: 220)
-        ])
+        containerView.centerInSuperview()
+        containerView.anchor(size: .init(width: 280, height: 220))
     }
     
     func configureTitleLabel() {
         titleLabel.text = alertTitle ?? "Something went wrong"
         
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: padding),
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 28)
-        ])
+        titleLabel.anchor(top: containerView.topAnchor,
+                          leading: containerView.leadingAnchor,
+                          trailing: containerView.trailingAnchor,
+                          padding: .init(top: 20, left: 20, bottom: 0, right: 20),
+                          size: .init(width: 0, height: 28))
     }
     
     func configureMessageLabel(){
         messageLabel.text           = message ?? "Unable to complete request"
         messageLabel.numberOfLines  = 4
         
-        NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            messageLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            messageLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            messageLabel.bottomAnchor.constraint(equalTo: actionButton.topAnchor, constant: -12)
-        ])
+        messageLabel.anchor(top: titleLabel.bottomAnchor,
+                            leading: containerView.leadingAnchor,
+                            bottom: actionButton.topAnchor,
+                            trailing: containerView.trailingAnchor,
+                            padding: .init(top: 8, left: 20, bottom: 12, right: 20))
+      
     }
     
     func configureActionButton() {
         actionButton.setTitle(buttonTitle ?? "Ok", for: .normal)
         actionButton.addTarget(self, action: #selector(dismissVC), for: .touchUpInside)
         
-        NSLayoutConstraint.activate([
-            actionButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -padding),
-            actionButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
-            actionButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
-            actionButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
+        actionButton.anchor(leading: containerView.leadingAnchor,
+                            bottom: containerView.bottomAnchor,
+                            trailing: containerView.trailingAnchor,
+                            padding: .init(top: 0, left: 20, bottom: 20, right: 20),
+                            size: .init(width: 0, height: 44))
+      
     }
     
     // MARK: - Actions

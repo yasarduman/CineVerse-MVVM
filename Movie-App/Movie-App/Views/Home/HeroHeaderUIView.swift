@@ -58,13 +58,13 @@ class HeroHeaderUIView: UIView {
     }()
     
     // Play Button
-    private let playButton = MovieButton(bgColor: MovieColor.playButonBG,
+    private lazy var playButton = MovieButton(bgColor: MovieColor.playButonBG,
                                          color:  MovieColor.playButonBG,
                                              title: "Play",
                                              systemImageName: "arrowtriangle.right.fill",
                                              cornerStyle: .small)
     // Download Button
-    private let downloadButton = MovieButton(bgColor: .systemRed,
+    private lazy var downloadButton = MovieButton(bgColor: .systemRed,
                                              color:  .systemRed,
                                              title: "Download",
                                              systemImageName: "arrow.down.to.line",

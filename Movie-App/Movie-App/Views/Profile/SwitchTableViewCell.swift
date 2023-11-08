@@ -12,7 +12,7 @@ class SwitchTableViewCell: UITableViewCell {
     static let identifier = "SwitchTableViewCell"
     
     // MARK: - UI Elements
-    private let iconContainer: UIView = {
+    private lazy var iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
@@ -20,7 +20,7 @@ class SwitchTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let iconImageView: UIImageView = {
+    private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor =  MovieColor.playButonBG
         imageView.contentMode = .scaleAspectFit
@@ -33,7 +33,7 @@ class SwitchTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let mySwitch: UISwitch = {
+    private lazy var mySwitch: UISwitch = {
         let mySwitch = UISwitch()
         mySwitch.onTintColor = MovieColor.goldColor
         return mySwitch

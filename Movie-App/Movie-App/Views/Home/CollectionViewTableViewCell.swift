@@ -20,7 +20,7 @@ class CollectionViewTableViewCell: UITableViewCell {
 
     
     // MARK: - UI Elements
-    private let collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height: 200)
         layout.scrollDirection = .horizontal

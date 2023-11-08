@@ -24,12 +24,7 @@ class MovieDataLoadingVC: UIViewController {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         containerView.addSubview(activityIndicator)
         
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
-        ])
+        activityIndicator.centerInSuperview()
         
         activityIndicator.startAnimating()
     }
@@ -40,6 +35,4 @@ class MovieDataLoadingVC: UIViewController {
             self.containerView = nil
         }
     }
-    
-
 }

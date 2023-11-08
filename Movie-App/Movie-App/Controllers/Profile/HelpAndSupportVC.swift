@@ -110,9 +110,3 @@ class HelpAndSupportVC: UIViewController, MFMailComposeViewControllerDelegate {
             }
     }
 }
-
-
-
-#Preview{
-    HelpAndSupportVC()
-}

@@ -14,7 +14,7 @@ class CustomTextField: UITextField {
         case email
         case password
     }
-    private let rightButton  = UIButton(type: .custom)
+    private lazy var rightButton  = UIButton(type: .custom)
     private let authField: CustomTextFieldType
     
     init(fieldType: CustomTextFieldType) {

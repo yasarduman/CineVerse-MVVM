@@ -12,7 +12,7 @@ class SettingTableViewCell: UITableViewCell {
     static let identifier = "SettingTableViewCell"
     
     // MARK: - UI Elements
-    private let iconContainer: UIView = {
+    private lazy var iconContainer: UIView = {
         let view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 10
@@ -20,7 +20,7 @@ class SettingTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let iconImageView: UIImageView = {
+    private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = MovieColor.playButonBG
         imageView.contentMode = .scaleAspectFit

@@ -11,15 +11,15 @@ import FirebaseAuth
 class RegisterVC: UIViewController {
     // MARK: - Properties
     private let HeadLabel            = TitleLabel(textAlignment: .left, fontSize: 20)
-    private let userNameTextField    = CustomTextField(fieldType: .username)
-    private let emailTextField       = CustomTextField(fieldType: .email)
-    private let passwordTextField    = CustomTextField(fieldType: .password)
-    private let repasswordTextField  = CustomTextField(fieldType: .password)
-    private let signUpButton         = MovieButton( bgColor:MovieColor.playButonBG ,color: MovieColor.playButonBG, title: "Sign Up", fontSize: .big)
+    private lazy var userNameTextField    = CustomTextField(fieldType: .username)
+    private lazy var emailTextField       = CustomTextField(fieldType: .email)
+    private lazy var passwordTextField    = CustomTextField(fieldType: .password)
+    private lazy var repasswordTextField  = CustomTextField(fieldType: .password)
+    private lazy var signUpButton         = MovieButton( bgColor:MovieColor.playButonBG ,color: MovieColor.playButonBG, title: "Sign Up", fontSize: .big)
     private let infoLabel            = SecondaryTitleLabel(fontSize: 16)
-    private let signInButton         = MovieButton( bgColor:.clear ,color: .label, title: "Sign In.", fontSize: .small)
+    private lazy var signInButton         = MovieButton( bgColor:.clear ,color: .label, title: "Sign In.", fontSize: .small)
     
-    private let stackView            = UIStackView()
+    private lazy var stackView            = UIStackView()
     private let authVM : AuthVM?     = AuthVM()
     
     // MARK: - View Controller Lifecycle
@@ -167,7 +167,7 @@ class RegisterVC: UIViewController {
             if success {
                 self.presentAlert(title: "Alert!", message: "Registration Successful 🥳", buttonTitle: "Ok")
                 self.dismiss(animated: true) {
-                    // Daha sonra NewsTabBarController'ı sun
+                    
                     let tabBar = MainTabBarViewController()
                     tabBar.modalPresentationStyle = .fullScreen
                     self.present(tabBar, animated: true, completion: nil)

@@ -10,12 +10,12 @@ import UIKit
 class ForgotPasswordVC: UIViewController {
     // MARK: - Properties
     private let HeadLabel            = TitleLabel(textAlignment: .left, fontSize: 20)
-    private let emailTextField       = CustomTextField(fieldType: .email)
-    private let forgotPasswordButton = MovieButton( bgColor:MovieColor.playButonBG ,color:MovieColor.playButonBG, title: "Submit", fontSize: .big)
+    private lazy var emailTextField       = CustomTextField(fieldType: .email)
+    private lazy var forgotPasswordButton = MovieButton( bgColor:MovieColor.playButonBG ,color:MovieColor.playButonBG, title: "Submit", fontSize: .big)
     private let infoLabel            = SecondaryTitleLabel(fontSize: 16)
-    private let signInButton         = MovieButton( bgColor:.clear ,color: .label, title: "Sign In.", fontSize: .small)
+    private lazy var signInButton         = MovieButton( bgColor:.clear ,color: .label, title: "Sign In.", fontSize: .small)
     
-    private let stackView            = UIStackView()
+    private lazy var stackView            = UIStackView()
     private let authVM : AuthVM?     = AuthVM()
     
     // MARK: - View Controller Lifecycle
