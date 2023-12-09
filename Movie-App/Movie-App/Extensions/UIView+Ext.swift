@@ -6,6 +6,7 @@
 //
 
 
+
 import UIKit
 
 extension UIView{
@@ -17,41 +18,34 @@ extension UIView{
     
     // MARK: - Auto Layout Constraints
     @discardableResult
-    func anchor(top: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, padding: UIEdgeInsets = .zero, size: CGSize = .zero) -> AnchoredConstraints {
+    func anchor(top: NSLayoutYAxisAnchor? = nil,
+                leading: NSLayoutXAxisAnchor? = nil,
+                bottom: NSLayoutYAxisAnchor? = nil,
+                trailing: NSLayoutXAxisAnchor? = nil,
+                padding: UIEdgeInsets = .zero,
+                size: CGSize = .zero) -> AnchoredConstraints {
         // Set translatesAutoresizingMaskIntoConstraints to false for auto layout
         translatesAutoresizingMaskIntoConstraints = false
         
         var anchoredConstraints = AnchoredConstraints()
         
         // MARK: - Top Anchor
-        if let top = top {
-            anchoredConstraints.top = topAnchor.constraint(equalTo: top, constant: padding.top)
-        }
+        if let top = top { anchoredConstraints.top = topAnchor.constraint(equalTo: top, constant: padding.top) }
         
         // MARK: - Leading Anchor
-        if let leading = leading {
-            anchoredConstraints.leading = leadingAnchor.constraint(equalTo: leading, constant: padding.left)
-        }
+        if let leading = leading {anchoredConstraints.leading = leadingAnchor.constraint(equalTo: leading, constant: padding.left)}
         
         // MARK: - Bottom Anchor
-        if let bottom = bottom {
-            anchoredConstraints.bottom = bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom)
-        }
+        if let bottom = bottom {  anchoredConstraints.bottom = bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom) }
         
         // MARK: - Trailing Anchor
-        if let trailing = trailing {
-            anchoredConstraints.trailing = trailingAnchor.constraint(equalTo: trailing, constant: -padding.right )
-        }
+        if let trailing = trailing {anchoredConstraints.trailing = trailingAnchor.constraint(equalTo: trailing, constant: -padding.right)}
         
         // MARK: - Width Anchor
-        if size.width != 0 {
-            anchoredConstraints.width = widthAnchor.constraint(equalToConstant: size.width)
-        }
+        if size.width != 0 { anchoredConstraints.width = widthAnchor.constraint(equalToConstant: size.width) }
         
         // MARK: - Height Anchor
-        if size.height != 0 {
-            anchoredConstraints.height = heightAnchor.constraint(equalToConstant: size.height)
-        }
+        if size.height != 0 { anchoredConstraints.height = heightAnchor.constraint(equalToConstant: size.height) }
         
         // Activate constraints
         [anchoredConstraints.top, anchoredConstraints.leading, anchoredConstraints.bottom, anchoredConstraints.trailing, anchoredConstraints.width, anchoredConstraints.height].forEach { $0?.isActive = true }
@@ -150,6 +144,18 @@ extension UIView{
     struct AnchoredConstraints {
         var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
     }
-    
-    
+}
+
+// UIEdgeInsets initinde değer verilmek istenmeyen parametrelerin default değeri 0 olarak ayarlandı.
+extension UIEdgeInsets {
+    init(top: CGFloat = .zero, leading: CGFloat = .zero, bottom: CGFloat = .zero, trailing: CGFloat = .zero) {
+        self.init(top: top, left: leading, bottom: bottom, right: trailing)
+    }
+}
+
+// CGSize initinde değer verilmek istenmeyen parametrelerin default değeri 0 olarak ayarlandı.
+extension CGSize {
+    init(widthSize: CGFloat = .zero, heightSize: CGFloat = .zero) {
+        self.init(width: widthSize, height: heightSize)
+    }
 }

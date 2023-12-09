@@ -7,13 +7,20 @@
 
 import UIKit
 
-class DownloadsViewController: UIViewController {
+protocol DownloadVCInterface{
+    func configureViewDidLoad()
+    func tableViewReloadData()
+    func pushVC(vc: UIViewController) 
+    func alert(title: String, message: String, buttonTitle: String)
+}
+
+final class DownloadsViewController: UIViewController {
     //MARK: - Variables
-    let vm: DownloadsVM? = DownloadsVM()
-    var movies: [Movie] = []
+    private lazy var viewModel: DownloadsVM? = DownloadsVM(view: self)
+  
     
     // MARK: - UI Elements
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: MovieTableViewCell.identifier)
@@ -23,14 +30,11 @@ class DownloadsViewController: UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = MovieColor.playButonBG
-        view.backgroundColor = .secondarySystemBackground
-        
-        refreshUI()
-        configureTableView()
+        viewModel?.viewDidLoad()
+       
     }
     override func viewWillAppear(_ animated: Bool) {
-        refreshUI()
+        viewModel?.refreshUI()
     }
     
     override func viewDidLayoutSubviews() {
@@ -44,20 +48,12 @@ class DownloadsViewController: UIViewController {
         tableView.dataSource = self
         tableView.backgroundColor = .secondarySystemBackground
     }
-    
-
-    private func refreshUI() {
-        vm!.fetchFavorites { movies in
-            self.movies = movies
-            self.tableView.reloadData()
-        }
-    }
 }
 
 // MARK: - UITableViewDelegate & UITableViewDataSource
 extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return viewModel?.movies.count ?? 0
     }
     
     
@@ -66,12 +62,12 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
         }
     
-        let movie = movies[indexPath.row]
+        let movie = viewModel?.movies[indexPath.row]
         
-        if let movieName = movie.original_title ?? movies[indexPath.row].original_name,
-           let posterURL = movie.poster_path,
-           let imdbScore = movie.vote_average,
-           let movieDate = movie.release_date ?? movies[indexPath.row].first_air_date {
+        if let movieName = movie?.original_title ?? viewModel?.movies[indexPath.row].original_name,
+           let posterURL = movie?.poster_path,
+           let imdbScore = movie?.vote_average,
+           let movieDate = movie?.release_date ?? viewModel?.movies[indexPath.row].first_air_date {
             
          cell.configure(with: MovieCellModel(titleName: movieName, posterURL: posterURL, vote_average: imdbScore, release_date: movieDate))
         }
@@ -82,30 +78,7 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let movie = movies[indexPath.row]
-        
-        guard let movieName = movie.original_title ?? movie.original_name else {
-            return
-        }
-        
-        Task{
-            do {
-                let moviePreveiwModel  = try await APICaller.shared.getMovie(with: movieName)
-          
-                let vc = MoviePreviewViewController()
-                vc.configure(with: MoviePreviewModel(title: movieName, youtubeView: moviePreveiwModel, movieOverview: movie.overview ?? "", release_date: movie.release_date ?? movie.first_air_date),moviModelIsFavori: movie)
-                
-                self.navigationController?.pushViewController(vc, animated: true)
-
-            }catch {
-                if let movieError = error as? MovieError {
-                    print(movieError.rawValue)
-                } else {
-                    presentAlert(title: "Error!", message: error.localizedDescription, buttonTitle: "OK")
-                }
-            }
-        }
+        viewModel?.didSelectRowAt(at: indexPath)
     }
     
     
@@ -114,11 +87,33 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { contextualAction, view, boolValue in
-            let movies = self.movies[indexPath.row]
-            self.vm!.removeFromFavorites(movies: movies)
-            self.refreshUI()
+            let movies = self.viewModel?.movies[indexPath.row]
+            self.viewModel?.removeFromFavorites(movies: movies!)
+            self.viewModel?.refreshUI()
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+extension DownloadsViewController: DownloadVCInterface{
+    func alert(title: String, message: String, buttonTitle: String) {
+        presentAlert(title: title, message:message, buttonTitle: buttonTitle)
+    }
+    
+    func pushVC(vc: UIViewController) {
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func tableViewReloadData() {
+        self.tableView.reloadData()
+    }
+    
+    func configureViewDidLoad() {
+        navigationController?.navigationBar.tintColor = MovieColor.playButonBG
+        view.backgroundColor = .secondarySystemBackground
+        configureTableView()
     }
 }

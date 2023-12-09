@@ -9,7 +9,7 @@
 import FirebaseAuth
 import FirebaseFirestore
 
-class AuthVM{
+final class AuthVM{
     // MARK: - Login
     func login(email: String, password: String, completion: @escaping (Bool, String) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in

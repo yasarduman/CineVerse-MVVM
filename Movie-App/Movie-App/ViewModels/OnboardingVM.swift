@@ -5,10 +5,9 @@
 //  Created by Yaşar Duman on 31.10.2023.
 //
 
-import Foundation
 import UIKit
 
-class OnboardingVM {
+final class OnboardingVM {
     let sliderData: [OnboardingItemModel] = [
         OnboardingItemModel(color: MovieColor.TabarbgDark, title: "Step into the Magic of Cinema", text: "Cineverse welcomes you to the enchanting world of cinema. Begin your journey by discovering the latest film news and captivating stories.", animationName: "a2"),
         

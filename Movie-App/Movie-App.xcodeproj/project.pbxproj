@@ -12,6 +12,8 @@
 		8310C6D32AF570D80093B0EE /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8310C6D22AF570D80093B0EE /* ProfileVM.swift */; };
 		83196AF32AF8D356005311B2 /* DetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83196AF22AF8D356005311B2 /* DetailVM.swift */; };
 		83196AF52AF8DEF9005311B2 /* DownloadsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83196AF42AF8DEF9005311B2 /* DownloadsVM.swift */; };
+		832747552B24BF990077EC87 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832747542B24BF990077EC87 /* UIStackView+Ext.swift */; };
+		832747572B24DB890077EC87 /* SearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832747562B24DB890077EC87 /* SearchVM.swift */; };
 		8345FE1F2AF77169004B332D /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8345FE1E2AF77169004B332D /* MovieTableViewCell.swift */; };
 		8345FE212AF771D9004B332D /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8345FE202AF771D9004B332D /* MovieViewModel.swift */; };
 		8345FE232AF771E4004B332D /* MoviePreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8345FE222AF771E4004B332D /* MoviePreviewModel.swift */; };
@@ -77,6 +79,8 @@
 		8310C6D22AF570D80093B0EE /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		83196AF22AF8D356005311B2 /* DetailVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailVM.swift; sourceTree = "<group>"; };
 		83196AF42AF8DEF9005311B2 /* DownloadsVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadsVM.swift; sourceTree = "<group>"; };
+		832747542B24BF990077EC87 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
+		832747562B24DB890077EC87 /* SearchVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVM.swift; sourceTree = "<group>"; };
 		8345FE1E2AF77169004B332D /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		8345FE202AF771D9004B332D /* MovieViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		8345FE222AF771E4004B332D /* MoviePreviewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePreviewModel.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				8345FE4F2AF80C17004B332D /* Validation + Ext.swift */,
+				832747542B24BF990077EC87 /* UIStackView+Ext.swift */,
 				83E6DE052AF0EC2D0083D414 /* UIViewController+Ext.swift */,
 				83E6E80E2AF2597C001984AD /* UIView+Ext.swift */,
 				837727722AEFF61F009BD4EC /* String+Ext.swift */,
@@ -291,6 +296,7 @@
 				8345FE4A2AF80B22004B332D /* AuthVM.swift */,
 				83B0B7D82AF15BE7001D2726 /* HomeVM.swift */,
 				83196AF22AF8D356005311B2 /* DetailVM.swift */,
+				832747562B24DB890077EC87 /* SearchVM.swift */,
 				83196AF42AF8DEF9005311B2 /* DownloadsVM.swift */,
 				8310C6D22AF570D80093B0EE /* ProfileVM.swift */,
 			);
@@ -545,6 +551,7 @@
 				8345FE1F2AF77169004B332D /* MovieTableViewCell.swift in Sources */,
 				837727842AEFF6B5009BD4EC /* MovieCollectionViewCell.swift in Sources */,
 				83E6DE142AF0ED8A0083D414 /* TitleLabel.swift in Sources */,
+				832747572B24DB890077EC87 /* SearchVM.swift in Sources */,
 				8345FE542AF81038004B332D /* ChangePasswordVC.swift in Sources */,
 				83E6E80F2AF2597C001984AD /* UIView+Ext.swift in Sources */,
 				83EC0A0D2AF6627600759588 /* HelpAndSupportVC.swift in Sources */,
@@ -567,6 +574,7 @@
 				8377277A2AEFF659009BD4EC /* ProfileViewController.swift in Sources */,
 				8377275A2AEFF457009BD4EC /* SceneDelegate.swift in Sources */,
 				83E6DE0C2AF0EC6D0083D414 /* AlertContainerView.swift in Sources */,
+				832747552B24BF990077EC87 /* UIStackView+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

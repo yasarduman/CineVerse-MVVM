@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingTableViewCell: UITableViewCell {
+final class SettingTableViewCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = "SettingTableViewCell"
     
@@ -57,7 +57,7 @@ class SettingTableViewCell: UITableViewCell {
         let imageSize: CGFloat = size/1.5
         
         iconContainer.anchor(leading: leadingAnchor,
-                             padding: .init(top: 0, left: 15, bottom: 0, right: 0),
+                             padding: .init(leading: 15),
                              size: .init(width: size, height: size))
         iconContainer.centerYInSuperview()
         
@@ -66,7 +66,7 @@ class SettingTableViewCell: UITableViewCell {
         iconImageView.centerYInSuperview()
         
         label.anchor(leading: iconContainer.trailingAnchor,
-                     padding: .init(top: 0, left: 20, bottom: 0, right: 0))
+                     padding: .init(leading: 20))
         label.centerYInSuperview()
     }
     
@@ -79,11 +79,9 @@ class SettingTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure Cell
-    public func configure(with model: SettingsOption){
+    func configure(with model: SettingsOption){
         label.text = model.title
         iconImageView.image = model.icon
         iconContainer.backgroundColor = model.iconBackgrondColor
-    }
-    
-    
+    }   
 }

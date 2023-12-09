@@ -10,9 +10,13 @@ import UIKit
 import FirebaseAuth
 import SDWebImage
 
-class ProfileViewController : UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+protocol ProfileVCInterface{
+    func configureViewDidLoad()
+}
+
+final class ProfileViewController : UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
     // MARK: - Properties
-    lazy var vm = ProfileVM()
+    private lazy var viewModel = ProfileVM(view: self)
     
     private lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -21,39 +25,32 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
        return table
     }()
     
-    private lazy var models = [Section]()
-    
     // MARK: - Header View
     private var headerView: ProfileUIView?
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureHeaderView()
-        tableView.tableHeaderView = headerView
- 
+        viewModel.viewDidLoad()
     }
     
     // MARK: - Configure HeaderView
     private func configureHeaderView() {
         headerView = ProfileUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 180))
         
-     
         //image tıklana bilir hale getirdik
         headerView?.userImage.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(chooeseImage))
         headerView?.userImage.addGestureRecognizer(gestureRecognizer)
         
-        vm.fetchUserPhoto { url in
+        viewModel.fetchUserPhoto { url in
             guard let url = URL(string: url) else {
                 return
             }
             self.headerView?.userImage.sd_setImage(with: url, completed: nil)
-      
         }
         
-        vm.fetchUserName { userName in
+        viewModel.fetchUserName { userName in
             self.headerView?.userName.text = userName
             
             //Flitered userName
@@ -85,7 +82,7 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
     let isDarkModeOn = UserDefaults.standard.bool(forKey: "DarkMode")
       
     private func configureTableViewCell() {
-        models.append(Section(title: "", options: [
+        viewModel.models.append(Section(title: "", options: [
             .switchCell(model: SettingsSwitchOption(title: "Dark Mode", icon: UIImage(systemName: "moon.stars"), iconBackgrondColor: MovieColor.goldColor, handler: {
                 
             }, isOn: isDarkModeOn)),
@@ -114,8 +111,7 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
     }
     
     // MARK: - Action
-    //image Func
-    @objc func chooeseImage() {
+    @objc private func chooeseImage() {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = .photoLibrary
@@ -123,7 +119,7 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         headerView?.userImage.image = info[.originalImage] as? UIImage
-        vm.uploadUserPhoto(imageData: (headerView?.userImage.image!)!)
+        viewModel.uploadUserPhoto(imageData: (headerView?.userImage.image!)!)
         self.dismiss(animated: true)
 }
 }
@@ -131,12 +127,12 @@ class ProfileViewController : UIViewController, UIImagePickerControllerDelegate 
 // MARK: - Table View Data Source
 extension ProfileViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models[section].options.count
+        return viewModel.models[section].options.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = models[indexPath.section].options[indexPath.row]
+        let model = viewModel.models[indexPath.section].options[indexPath.row]
         
         switch model.self {
         case .staticCell(let model):
@@ -161,7 +157,7 @@ extension ProfileViewController: UITableViewDataSource{
 extension ProfileViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let model = models[indexPath.section].options[indexPath.row]
+        let model = viewModel.models[indexPath.section].options[indexPath.row]
         
         switch model.self {
         case .staticCell(let model):
@@ -173,7 +169,14 @@ extension ProfileViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Return the desired row height
         return 60.0
+    }
+}
+
+extension ProfileViewController: ProfileVCInterface {
+    func configureViewDidLoad() {
+        configureUI()
+        configureHeaderView()
+        tableView.tableHeaderView = headerView
     }
 }

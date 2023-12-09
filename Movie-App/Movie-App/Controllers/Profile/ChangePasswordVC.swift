@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChangePasswordVC: UIViewController {
+final class ChangePasswordVC: UIViewController {
     
     // MARK: - Properties
     private let HeadLabel                 = TitleLabel(textAlignment: .left, fontSize: 20)

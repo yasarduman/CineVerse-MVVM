@@ -5,16 +5,13 @@
 //  Created by Yaşar Duman on 30.10.2023.
 //
 
-
 import UIKit
-
 
 protocol HeroHeaderUIViewProtocol: AnyObject {
     func showDetail(movie: Movie)
 }
 
-
-class HeroHeaderUIView: UIView {
+final class HeroHeaderUIView: UIView {
     // MARK: - Properties
     weak var delegate: HeroHeaderUIViewProtocol?
     var movie: Movie?
@@ -78,11 +75,10 @@ class HeroHeaderUIView: UIView {
         imageView.image = UIImage(named: "heroImage")
         return imageView
     }()
+    
     // Gradient Layer
-
     let gradientLayer = CAGradientLayer()
     
-  
 
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -110,6 +106,7 @@ class HeroHeaderUIView: UIView {
         ]
         downloadButton.layer.borderColor = UIColor.label.cgColor
     }
+    
     private func addGradient() {
         gradientLayer.colors = [
             UIColor.clear.cgColor,
@@ -118,6 +115,7 @@ class HeroHeaderUIView: UIView {
         gradientLayer.frame = bounds
         layer.addSublayer(gradientLayer)
     }
+    
  // MARK: - ConfigureUI
     private func ConfigureUI() {
         configurePlayButton()
@@ -129,7 +127,7 @@ class HeroHeaderUIView: UIView {
     private func configurePlayButton() {
         playButton.anchor(leading: leadingAnchor,
                           bottom: bottomAnchor,
-                          padding: .init(top: 0, left: 20, bottom: 30, right: 0),
+                          padding: .init(leading: 20, bottom: 30),
                           size: .init(width: 120, height: 46))
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
     }
@@ -137,31 +135,30 @@ class HeroHeaderUIView: UIView {
     private func configureDownloadButton() {
         downloadButton.anchor(leading: playButton.trailingAnchor,
                               bottom: bottomAnchor,
-                              padding: .init(top: 0, left: 20, bottom: 30, right: 0),
+                              padding: .init(leading: 20, bottom: 30),
                               size: .init(width: 140, height: 46))
     }
     
     private func configuremoviName() {
         movieName.anchor(leading:playButton.leadingAnchor,
                         bottom: playButton.topAnchor,
-                        padding: .init(top: 0, left: 0, bottom: 20, right: 0))
+                        padding: .init(bottom: 20))
     }
     
     private func configureStackView() {
         stackView.anchor(leading: movieName.leadingAnchor,
                          bottom: movieName.topAnchor,
-                         padding: .init(top: 0, left: 0, bottom: 10, right: 0))
+                         padding: .init(bottom: 10))
     }
     
-    @objc func playButtonTapped() {
+    @objc private func playButtonTapped() {
         DispatchQueue.main.async {
             self.delegate?.showDetail(movie: self.movie!)
         }
     }
     
 // MARK: - UpdateData
-    public func configure(with model: Movie) {
-        
+   func configure(with model: Movie) {
         movie = model
     
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(String(describing: model.poster_path!))") else {

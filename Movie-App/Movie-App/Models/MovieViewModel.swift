@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct MovieCellModel{
     let titleName: String
     let posterURL: String

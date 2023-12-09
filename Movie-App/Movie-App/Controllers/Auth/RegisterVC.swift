@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class RegisterVC: UIViewController {
+final class RegisterVC: UIViewController {
     // MARK: - Properties
     private let HeadLabel            = TitleLabel(textAlignment: .left, fontSize: 20)
     private lazy var userNameTextField    = CustomTextField(fieldType: .username)
@@ -16,16 +16,15 @@ class RegisterVC: UIViewController {
     private lazy var passwordTextField    = CustomTextField(fieldType: .password)
     private lazy var repasswordTextField  = CustomTextField(fieldType: .password)
     private lazy var signUpButton         = MovieButton( bgColor:MovieColor.playButonBG ,color: MovieColor.playButonBG, title: "Sign Up", fontSize: .big)
-    private let infoLabel            = SecondaryTitleLabel(fontSize: 16)
+    private let infoLabel                 = SecondaryTitleLabel(fontSize: 16)
     private lazy var signInButton         = MovieButton( bgColor:.clear ,color: .label, title: "Sign In.", fontSize: .small)
     
     private lazy var stackView            = UIStackView()
-    private let authVM : AuthVM?     = AuthVM()
+    private let authVM : AuthVM?          = AuthVM()
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureViewController()
         configureHeadLabel()
         configureTextField()
@@ -45,7 +44,7 @@ class RegisterVC: UIViewController {
         
         HeadLabel.anchor(top: view.topAnchor,
                          leading: view.leadingAnchor,
-                         padding: .init(top: 80, left: 20, bottom: 0, right: 0))
+                         padding: .init(top: 80, leading: 20))
         
     }
     
@@ -53,23 +52,23 @@ class RegisterVC: UIViewController {
         userNameTextField.anchor(top: HeadLabel.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
-                              padding: .init(top: 40, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50))
+                              padding: .init(top: 40, leading: 20,trailing: 20),
+                              size: .init(heightSize: 50))
         
         
         emailTextField.anchor(top: userNameTextField.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
-                              padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50))
+                              padding: .init(top: 20, leading: 20, trailing: 20),
+                              size: .init(heightSize: 50))
         
 
         
         passwordTextField.anchor(top: emailTextField.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
-                              padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50))
+                              padding: .init(top: 20, leading: 20, trailing: 20),
+                              size: .init(heightSize: 50))
         
         
         repasswordTextField.placeholder = "Repassword"
@@ -77,8 +76,8 @@ class RegisterVC: UIViewController {
         repasswordTextField.anchor(top: passwordTextField.bottomAnchor,
                               leading: view.leadingAnchor,
                               trailing: view.trailingAnchor,
-                              padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                              size: .init(width: 0, height: 50))
+                              padding: .init(top: 20, leading: 20, trailing: 20),
+                              size: .init(heightSize: 50))
         
 
     }
@@ -89,17 +88,14 @@ class RegisterVC: UIViewController {
         signUpButton.anchor(top: repasswordTextField.bottomAnchor,
                             leading: view.leadingAnchor,
                             trailing: view.trailingAnchor,
-                            padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                            size: .init(width: 0, height: 50))
+                            padding: .init(top: 20, leading: 20, trailing: 20),
+                            size: .init(heightSize: 50))
         
         signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
-       
     }
-    
-  
 
     private func configureStackView() {
-        stackView.axis          = .horizontal
+        stackView.axis = .horizontal
         
         stackView.addArrangedSubview(infoLabel)
         stackView.addArrangedSubview(signInButton)
@@ -112,7 +108,6 @@ class RegisterVC: UIViewController {
         stackView.centerXInSuperview()
         
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
-        
     }
     
     // MARK: - Action

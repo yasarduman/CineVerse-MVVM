@@ -8,16 +8,16 @@
 import UIKit
 
 
-class HelpAndSupportUIView: UIView {
+final class HelpAndSupportUIView: UIView {
     // MARK: - UI Elements
-    lazy var containerView : UIView = {
+    private lazy var containerView : UIView = {
         let container = UIView()
         container.backgroundColor = .secondarySystemBackground
         container.layer.cornerRadius = 10
         return container
     }()
     
-    lazy var userImage: UIImageView = {
+    private lazy var userImage: UIImageView = {
        let image = UIImageView()
         image.image = UIImage(named: "heroImage")
         image.clipsToBounds = true
@@ -25,14 +25,14 @@ class HelpAndSupportUIView: UIView {
         return image
     }()
     
-    lazy var userName: UILabel = {
+    private lazy var userName: UILabel = {
         let label = UILabel()
         label.text = "Yaşar Duman"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
     
-    lazy var userMessage: UILabel = {
+    private lazy var userMessage: UILabel = {
         let label = UILabel()
         label.text = "Send you a message"
         label.font = UIFont.systemFont(ofSize: 15)
@@ -65,6 +65,8 @@ class HelpAndSupportUIView: UIView {
     
     // MARK: - UI Configuration
     private func configureUI(){
+        addSubview(containerView)
+        containerView.addSubviewsExt(userImage, userName, userMessage, sendImage)
         configureContainer()
         configureuserImage()
         configureUserName()
@@ -73,43 +75,37 @@ class HelpAndSupportUIView: UIView {
     }
     
     private func configureContainer(){
-        addSubview(containerView)
         containerView.backgroundColor = .tertiarySystemGroupedBackground
         containerView.fillSuperview()
     }
     
     private func configureuserImage(){
-        containerView.addSubview(userImage)
         userImage.anchor(leading: containerView.leadingAnchor,
-                         padding: .init(top: 0, left: 15, bottom: 0, right: 0),
+                         padding: .init(leading: 15),
                          size: .init(width: 70, height: 70))
         
         userImage.centerYInSuperview()
     }
     
     private func configureUserName(){
-        containerView.addSubview(userName)
         userName.anchor(top: containerView.topAnchor,
-                        padding: .init(top: 20, left: 0, bottom: 0, right: 0))
+                        padding: .init(top: 20))
         
         userName.centerXInSuperview()
     }
     
     private func configureUserMessage(){
-        containerView.addSubview(userMessage)
         userMessage.anchor(top: userName.bottomAnchor,
-                           padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+                           padding: .init(top: 10))
         
         userMessage.centerXInSuperview()
     }
     
     private func configureSendIamge(){
-        containerView.addSubview(sendImage)
         sendImage.anchor(trailing: containerView.trailingAnchor,
-                         padding: .init(top: 0, left: 0, bottom: 0, right: 10),
+                         padding: .init(trailing: 10),
                          size: .init(width: 35, height: 35))
         
         sendImage.centerYInSuperview()
-        
     }
 }

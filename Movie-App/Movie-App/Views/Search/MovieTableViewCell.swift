@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
+final class MovieTableViewCell: UITableViewCell {
 
     static let identifier = "TitleTableViewCell"
 
@@ -40,6 +40,7 @@ class MovieTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         return label
     }()
+    
     private let playTitleButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "play.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 35))
@@ -121,14 +122,10 @@ class MovieTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubviewsExt(titlesPosterUIImageView,titleStackView,DateStackView,imdbStackView)
         
-        titleStackView.addArrangedSubview(titleLabel)
-        titleStackView.addArrangedSubview(playTitleButton)
-        DateStackView.addArrangedSubview(ReleaseDateImage)
-        DateStackView.addArrangedSubview(movieReleaseDate)
-        imdbStackView.addArrangedSubview(imdbLabel)
-        imdbStackView.addArrangedSubview(imdbImageView)
-    
-        
+        titleStackView.addArrangedSubviewsExt(titleLabel, playTitleButton)
+        DateStackView.addArrangedSubviewsExt(ReleaseDateImage, movieReleaseDate)
+        imdbStackView.addArrangedSubviewsExt(imdbLabel, imdbImageView)
+            
         applyConstraints()
     }
     
@@ -144,26 +141,26 @@ class MovieTableViewCell: UITableViewCell {
         titlesPosterUIImageView.anchor(top: containerView.topAnchor,
                           leading: containerView.leadingAnchor,
                           bottom: containerView.bottomAnchor,
-                          size: .init(width: 100, height: 0))
+                          size: .init(widthSize: 100))
      
         titleStackView.anchor(top: containerView.topAnchor,
                           leading: titlesPosterUIImageView.trailingAnchor,
                           trailing: containerView.trailingAnchor,
-                          padding: .init(top: 25, left: 10, bottom: 0, right: 10))
+                          padding: .init(top: 25, leading: 10,trailing: 10))
         
         playTitleButton.anchor(size: .init(width: 35, height: 35))
 
         DateStackView.anchor(leading: titleLabel.leadingAnchor,
                              bottom: containerView.bottomAnchor,
-                             padding: .init(top: 15, left: 0, bottom: 10, right: 0))
+                             padding: .init(top: 15, bottom: 10))
          
         imdbStackView.anchor(bottom: containerView.bottomAnchor,
                              trailing: containerView.trailingAnchor,
-                             padding: .init(top: 15, left: 0, bottom: 10, right: 10))
+                             padding: .init(top: 15, bottom: 10, trailing: 10))
     }
     
     // MARK: - Public Methods
-    public func configure(with model: MovieCellModel) {
+    func configure(with model: MovieCellModel) {
 
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {
             return

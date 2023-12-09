@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DownloadTableViewCell: UITableViewCell {
+final class DownloadTableViewCell: UITableViewCell {
     //MARK: - Variables
     static let reuseID = "dowloadTableViewCell"
     private var movies: [Movie] = []
@@ -125,11 +125,8 @@ class DownloadTableViewCell: UITableViewCell {
     private func configureUI() {
         contentView.addSubview(containerView)
         containerView.addSubviewsExt(movieName,movieImage,movieOverview,DateStackView,imdbStackView)
-        DateStackView.addArrangedSubview(ReleaseDateImage)
-        DateStackView.addArrangedSubview(movieReleaseDate)
-        imdbStackView.addArrangedSubview(imdbLabel)
-        imdbStackView.addArrangedSubview(imdbImageView)
-        
+        DateStackView.addArrangedSubviewsExt(ReleaseDateImage, movieReleaseDate)
+        imdbStackView.addArrangedSubviewsExt(imdbLabel, imdbImageView)
         
         configureContainerView()
         configureMovieImage()
@@ -151,33 +148,33 @@ class DownloadTableViewCell: UITableViewCell {
         movieImage.anchor(top: containerView.topAnchor,
                           leading: containerView.leadingAnchor,
                           bottom: containerView.bottomAnchor,
-                          size: .init(width: 100, height: 0)
+                          size: .init(widthSize: 100)
         )
     }
     private func configureMovieName(){
         movieName.anchor(top: containerView.topAnchor,
                          leading: movieImage.trailingAnchor,
                          trailing: imdbImageView.leadingAnchor,
-                         padding: .init(top: 18, left: 10, bottom: 0, right: 5))
+                         padding: .init(top: 18, leading: 10, trailing: 5))
     }
     private func configureMovieOverview(){
         movieOverview.anchor(top: movieName.bottomAnchor,
                              leading: movieImage.trailingAnchor,
                              trailing: containerView.trailingAnchor,
-                             padding: .init(top: 10, left: 10, bottom: 0, right: 10))
+                             padding: .init(top: 10, leading: 10, trailing: 10))
     }
     
     private func configureDateStackView(){
         DateStackView.anchor(top: movieOverview.bottomAnchor,
                              leading: movieImage.trailingAnchor,
                              bottom: containerView.bottomAnchor,
-                             padding: .init(top: 10, left: 10, bottom: 10, right: 0))
+                             padding: .init(top: 10, leading: 10, trailing: 10))
     }
     
     private func configureImdbStackView(){
         imdbStackView.anchor(top: movieOverview.bottomAnchor,
                              bottom: containerView.bottomAnchor,
                              trailing: containerView.trailingAnchor,
-                             padding: .init(top: 10, left: 0, bottom: 10, right: 10))
+                             padding: .init(top: 10, leading: 10, trailing: 10))
     }
 }

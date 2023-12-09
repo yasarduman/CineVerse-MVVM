@@ -8,7 +8,7 @@
 import FirebaseFirestore
 import FirebaseAuth
 
-class DetailVM {
+final class DetailVM {
     let currentUserID = Auth.auth().currentUser!.uid
     
     func addToFavorites(movies: Movie, completion: @escaping (Bool) -> Void) {

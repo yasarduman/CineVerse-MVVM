@@ -9,12 +9,12 @@
 import UIKit
 import WebKit
 
-class MoviePreviewViewController: UIViewController {
+final class MoviePreviewViewController: UIViewController {
     
     //MARK: - Variables
-    var movies: Movie? = nil
-    var vm: DetailVM? = DetailVM()
-    lazy var isFavorited = false
+    private var movies: Movie? = nil
+    private lazy var vm: DetailVM? = DetailVM()
+    private lazy var isFavorited = false
     
     // MARK: - UI Elements
     private let titleLabel: UILabel = {
@@ -87,36 +87,30 @@ class MoviePreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        view.addSubview(webView)
-        view.addSubview(scrollView)
+        view.addSubviewsExt(webView, scrollView)
         scrollView.addSubview(stackView)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(DateStackView)
+        stackView.addArrangedSubviewsExt(titleLabel, DateStackView)
         
-        DateStackView.addArrangedSubview(ReleaseDateImage)
-        DateStackView.addArrangedSubview(movieReleaseDate)
-        stackView.addArrangedSubview(overviewLabel)
-        stackView.addArrangedSubview(downloadButton)
-  
+        DateStackView.addArrangedSubviewsExt(ReleaseDateImage, movieReleaseDate)
+        stackView.addArrangedSubviewsExt(overviewLabel, downloadButton)
         
         configureConstraints()
         configureDownloadButton()
         
     }
+    
     // MARK: - Constraints
     private func configureConstraints() {
-        
         webView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                        leading: view.leadingAnchor, 
                        trailing: view.trailingAnchor,
-                       padding: .init(top: 0, left: 0, bottom: 0, right: 0),
-                       size: .init(width: 0, height: 300))
+                       size: .init(heightSize: 300))
         
         scrollView.anchor(top: webView.bottomAnchor,
                           leading: view.leadingAnchor,
                           bottom: view.safeAreaLayoutGuide.bottomAnchor,
                           trailing: view.trailingAnchor,
-                          padding: .init(top: 10, left: 0, bottom: 0, right: 0))
+                          padding: .init(top: 10))
         
         stackView.anchor(top: scrollView.topAnchor,
                          leading: scrollView.leadingAnchor,
@@ -127,29 +121,28 @@ class MoviePreviewViewController: UIViewController {
         
        titleLabel.anchor(top: stackView.topAnchor,
                              leading: stackView.leadingAnchor,
-     
-                             padding: .init(top: 20, left: 20, bottom: 0, right: 0))
+                            trailing: stackView.trailingAnchor,
+                             padding: .init(top: 20, leading: 20))
    
        DateStackView.anchor(top: titleLabel.bottomAnchor,
-
                             leading: stackView.leadingAnchor,
-                             padding: .init(top: 10, left: 20, bottom: 0, right: 0))
+                            trailing: stackView.trailingAnchor,
+                             padding: .init(top: 10, leading: 20))
         
         ReleaseDateImage.anchor(size: .init(width: 20, height: 20))
    
       
-        
         overviewLabel.anchor(top: DateStackView.bottomAnchor,
                              leading: stackView.leadingAnchor,
                              trailing: stackView.trailingAnchor,
-                             padding: .init(top: 25, left: 20, bottom: 0, right: 20))
+                             padding: .init(top: 25, leading: 20, trailing: 20))
         
         downloadButton.anchor(top: overviewLabel.bottomAnchor,
                               leading: stackView.leadingAnchor,
                               bottom: stackView.bottomAnchor,
                               trailing: stackView.trailingAnchor,
                               padding: .init(top: 25, left: 20, bottom: 20, right: 20),
-                              size: .init(width: 0, height: 50))
+                              size: .init(heightSize: 50))
         downloadButton.addTarget(self, action: #selector(downloadButtonTapped), for: .touchUpInside)
     }
    private func configureDownloadButton() {

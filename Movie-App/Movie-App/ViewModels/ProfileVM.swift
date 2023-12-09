@@ -40,9 +40,19 @@ struct SettingsOption {
 }
 
 
+protocol ProfileVMInterface: AnyObject {
+    func viewDidLoad()
+}
+
 // MARK: - ViewModel
-class ProfileVM {
-    let currentUserID = Auth.auth().currentUser!.uid
+final class ProfileVM {
+    private var view: ProfileVCInterface?
+    private let currentUserID = Auth.auth().currentUser!.uid
+    lazy var models = [Section]()
+    
+    init(view: ProfileVCInterface? = nil) {
+        self.view = view
+    }
     
     func fetchUserName(completion: @escaping (String) -> Void) {
         Firestore.firestore()
@@ -86,5 +96,11 @@ class ProfileVM {
                 completion(imageUrl!)
             }
         }
+    }
+}
+
+extension ProfileVM: ProfileVMInterface {
+    func viewDidLoad() {
+        view?.configureViewDidLoad()
     }
 }

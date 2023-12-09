@@ -7,9 +7,9 @@
 
 import UIKit
 
-class MovieDataLoadingVC: UIViewController {
+final class MovieDataLoadingVC: UIViewController {
     // MARK: - Properties
-    var containerView: UIView!
+    private var containerView: UIView!
     
     // MARK: - Loading View Methods
     func showLoadingView() {

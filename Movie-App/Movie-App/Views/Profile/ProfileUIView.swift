@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+final class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
     //MARK: - UI Elements
     lazy var containerImage: UIView = {
         let container = UIView()
@@ -60,6 +60,8 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubviewsExt(containerImage, userAddImageIcon, userName, userMesage)
+        containerImage.addSubview(userImage)
         configureContainerImage()
         configureImage()
         configureLabel()
@@ -71,34 +73,29 @@ class ProfileUIView: UIView, UIImagePickerControllerDelegate & UINavigationContr
     
   // MARK: - UI Configuration
     private func configureContainerImage(){
-        addSubview(containerImage)
+        
         containerImage.anchor(size: .init(width: 120, height: 120))
         containerImage.anchor(leading: leadingAnchor,
-                         padding: .init(top: 0, left: 20, bottom: 0, right: 0))
+                         padding: .init(top: 0, leading: 20))
         containerImage.centerYInSuperview()
     }
     
     private func configureImage(){
-        containerImage.addSubview(userImage)
-        addSubview(userAddImageIcon)
-        
         userImage.fillSuperview()
         
         userAddImageIcon.anchor(bottom: userImage.bottomAnchor,
                                 trailing: userImage.trailingAnchor,
-                                padding: .init(top: 0, left: 0, bottom: 5, right: 5),
+                                padding: .init(bottom: 5, trailing: 5),
                                 size: .init(width: 30, height: 30))
     }
     
     private func configureLabel() {
-        addSubview(userName)
-        addSubview(userMesage)
         userName.anchor(top: userImage.topAnchor,
                         leading: userImage.trailingAnchor,
-                        padding: .init(top: 20, left: 20, bottom: 0, right: 0))
+                        padding: .init(top: 20, leading: 20))
         userMesage.anchor(top: userName.topAnchor,
                         leading: userImage.trailingAnchor,
                           trailing: trailingAnchor,
-                        padding: .init(top: 40, left: 20, bottom: 0, right: 0))
+                        padding: .init(top: 40, leading: 20))
     }
 }

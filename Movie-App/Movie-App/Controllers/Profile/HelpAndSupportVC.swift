@@ -8,7 +8,7 @@
 import UIKit
 import MessageUI
 
-class HelpAndSupportVC: UIViewController, MFMailComposeViewControllerDelegate {
+final class HelpAndSupportVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     private let mailComposer = MFMailComposeViewController()
     private let headLabel = TitleLabel(textAlignment: .center, fontSize: 25)

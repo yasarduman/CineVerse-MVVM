@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BodyLabel: UILabel {
+final class BodyLabel: UILabel {
     
     // MARK: - Initialization
     override init(frame: CGRect) {

@@ -14,5 +14,4 @@ enum MovieColor {
     static let TabarbgDark       = UIColor(red: 0.11, green: 0.11, blue: 0.12, alpha: 1.00)
     static let TabarbgWhite      = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00)
     static let playButonBGText   = UIColor(red: 0.78, green: 0.40, blue: 0.33, alpha: 1.00)
-    
 }

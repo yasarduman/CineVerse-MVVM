@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
+final class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     
     // MARK: - Home Navigation Controller 🏠
-    func createHomeNC() -> UINavigationController {
+    private func createHomeNC() -> UINavigationController {
         let homeVC        = HomeViewController()
 
         homeVC.tabBarItem = UITabBarItem(title: "Home",
@@ -44,7 +44,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     }
  
     // MARK: - Search Navigation Controller 🔍
-    func createSearchNC() -> UINavigationController {
+    private func createSearchNC() -> UINavigationController {
         let searchVC        = SearchViewController()
         searchVC.title      = "Search"
        
@@ -57,7 +57,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     }
     
     // MARK: - Favorites Navigation Controller ⭐️
-    func createFavoritesNC() -> UINavigationController {
+    private func createFavoritesNC() -> UINavigationController {
         let downloadVC        = DownloadsViewController()
         downloadVC.title = "Download"
         
@@ -70,7 +70,7 @@ class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     
 //     MARK: - Profile Navigation Controller ⚙️
-        func createProfileNC() -> UINavigationController {
+    private func createProfileNC() -> UINavigationController {
             let profileVC        = ProfileViewController()
             profileVC.title = "Profile"
             

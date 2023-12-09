@@ -7,24 +7,23 @@
 
 import UIKit
 
-class AlertVC: UIViewController {
+final class AlertVC: UIViewController {
     
     // MARK: - Properties
-    lazy var containerView  = AlertContainerView()
-    lazy var titleLabel     = TitleLabel(textAlignment: .center, fontSize: 20)
-    lazy var messageLabel   = BodyLabel(textAlignment: .center)
-    lazy var actionButton   = MovieButton(bgColor: .systemPink, color: .systemPink, title: "Ok", systemImageName: "checkmark.circle")
+    private lazy var containerView  = AlertContainerView()
+    private lazy var titleLabel     = TitleLabel(textAlignment: .center, fontSize: 20)
+    private lazy var messageLabel   = BodyLabel(textAlignment: .center)
+    private lazy var actionButton   = MovieButton(bgColor: .systemPink, color: .systemPink, title: "Ok", systemImageName: "checkmark.circle")
     
     var alertTitle: String?
     var message: String?
     var buttonTitle: String?
     
-    let padding: CGFloat = 20
+    private let padding: CGFloat = 20
     
     // MARK: - Initialization
     init(title: String, message: String, buttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
-        
         self.alertTitle   = title
         self.message      = message
         self.buttonTitle  = buttonTitle
@@ -57,8 +56,8 @@ class AlertVC: UIViewController {
         titleLabel.anchor(top: containerView.topAnchor,
                           leading: containerView.leadingAnchor,
                           trailing: containerView.trailingAnchor,
-                          padding: .init(top: 20, left: 20, bottom: 0, right: 20),
-                          size: .init(width: 0, height: 28))
+                          padding: .init(top: 20, leading: 20, trailing: 20),
+                          size: .init(heightSize: 28))
     }
     
     func configureMessageLabel(){
@@ -80,13 +79,13 @@ class AlertVC: UIViewController {
         actionButton.anchor(leading: containerView.leadingAnchor,
                             bottom: containerView.bottomAnchor,
                             trailing: containerView.trailingAnchor,
-                            padding: .init(top: 0, left: 20, bottom: 20, right: 20),
-                            size: .init(width: 0, height: 44))
+                            padding: .init(leading: 20, bottom: 20, trailing: 20),
+                            size: .init(heightSize: 44))
       
     }
     
     // MARK: - Actions
-    @objc func dismissVC() {
+    @objc private func dismissVC() {
         dismiss(animated: true)
     }
 }

@@ -12,7 +12,7 @@ protocol CollectionViewTableViewCellDelegate: AnyObject {
     func collectionViewTableViewCellDidTapCell(_ cell: CollectionViewTableViewCell, viewModel: MoviePreviewModel, movieModel: Movie)
 }
 
-class CollectionViewTableViewCell: UITableViewCell {
+final class CollectionViewTableViewCell: UITableViewCell {
     // MARK: - Properties
     weak var delegate: CollectionViewTableViewCellDelegate?
     static let identifier = "CollectionViewTableViewCell"

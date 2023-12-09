@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SwitchTableViewCell: UITableViewCell {
+final class SwitchTableViewCell: UITableViewCell {
     // MARK: - Properties
     static let identifier = "SwitchTableViewCell"
     
@@ -42,9 +42,7 @@ class SwitchTableViewCell: UITableViewCell {
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(label)
-        contentView.addSubview(iconContainer)
-        contentView.addSubview(mySwitch)
+        contentView.addSubviewsExt(label, iconContainer, mySwitch)
         iconContainer.addSubview(iconImageView)
         
         contentView.clipsToBounds = true
@@ -101,7 +99,7 @@ class SwitchTableViewCell: UITableViewCell {
         let imageSize: CGFloat = size/1.5
         
         iconContainer.anchor(leading: leadingAnchor,
-                             padding: .init(top: 0, left: 15, bottom: 0, right: 0),
+                             padding: .init( leading: 15),
                              size: .init(width: size, height: size))
         
         iconContainer.centerYInSuperview()
@@ -111,12 +109,12 @@ class SwitchTableViewCell: UITableViewCell {
         iconImageView.centerYInSuperview()
         
         label.anchor(leading: iconContainer.trailingAnchor,
-                     padding: .init(top: 0, left: 20, bottom: 0, right: 0))
+                     padding: .init(leading: 20))
         
         label.centerYInSuperview()
         
         mySwitch.anchor(trailing: contentView.trailingAnchor,
-                        padding: .init(top: 0, left: 0, bottom: 0, right: 20),
+                        padding: .init(trailing: 20),
                         size: .init(width: mySwitchwidth, height: mySwitchheight))
         
         mySwitch.centerYInSuperview()
@@ -132,7 +130,7 @@ class SwitchTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configure Cell
-    public func configure(with model: SettingsSwitchOption){
+    func configure(with model: SettingsSwitchOption){
         label.text = model.title
         iconImageView.image = model.icon
         iconContainer.backgroundColor = model.iconBackgrondColor

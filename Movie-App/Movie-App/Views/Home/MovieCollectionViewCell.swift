@@ -8,8 +8,7 @@
 
 import SDWebImage
 
-class MovieCollectionViewCell: UICollectionViewCell {
-    
+final class MovieCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "MovieCollectionViewCell"
     
@@ -42,12 +41,12 @@ class MovieCollectionViewCell: UICollectionViewCell {
         posterImageView.frame = contentView.bounds
         imdbButton.anchor(top: posterImageView.topAnchor,
                           trailing: posterImageView.trailingAnchor,
-                          padding: .init(top: 6, left: 0, bottom: 0, right: 6),
+                          padding: .init(top: 6, trailing: 6),
                           size: .init(width: 50, height: 25))
     }
     
     // MARK: - Public Methods
-    public func configure(with model: Movie) {
+    func configure(with model: Movie) {
         let posterPath = model.poster_path
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(posterPath!)") else {
             return
@@ -59,5 +58,4 @@ class MovieCollectionViewCell: UICollectionViewCell {
             self.imdbButton.setTitle(formattedValue, for: UIControl.State.normal)
         }
     }
-    
 }

@@ -16,7 +16,7 @@ struct Constants {
     static let YoutubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
-class APICaller {
+final class APICaller {
     static let shared = APICaller()
     let decoder = JSONDecoder()
     

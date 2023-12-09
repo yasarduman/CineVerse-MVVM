@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieButton: UIButton {
+final class MovieButton: UIButton {
     
     enum FontSize {
         case big

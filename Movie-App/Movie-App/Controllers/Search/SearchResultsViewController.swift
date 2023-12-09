@@ -9,9 +9,10 @@ import UIKit
 
 protocol SearchResultsViewControllerDelegate: AnyObject {
     func searchResultsViewControllerDidTapItem(_ viewModel: MoviePreviewModel, movieModel: Movie)
+
 }
 
-class SearchResultsViewController: UIViewController {
+final class SearchResultsViewController: UIViewController {
     // MARK: - Properties
     public var movies: [Movie] = [Movie]()
     

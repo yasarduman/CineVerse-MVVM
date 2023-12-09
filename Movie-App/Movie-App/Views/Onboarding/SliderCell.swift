@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 
-class SliderCell: UICollectionViewCell {
+final class SliderCell: UICollectionViewCell {
     
     //MARK: - UI Elements
     private lazy var lottieView: LottieAnimationView = {
@@ -49,44 +49,36 @@ class SliderCell: UICollectionViewCell {
     
     //MARK: - Helper Functions
     private func configureUI() {
+        contentView.addSubviewsExt(lottieView, titleLabel, textLabel)
         configureLottieView()
         configureTitleLabel()
         configureTextLabel()
     }
     
-    private func configureLottieView() {
-        contentView.addSubview(lottieView)
+    private func configureLottieView() { 
         lottieView.anchor(top: contentView.topAnchor,
                           leading: contentView.leadingAnchor,
                           trailing: contentView.trailingAnchor,
-                          padding: UIEdgeInsets(top: 140,
-                                                left: 0,
-                                                bottom: 0,
-                                                right: 0),
-                          size: CGSize(width: .zero,
-                                       height: 300))
+                          padding: .init(top: 140),
+                          size: .init(heightSize: 300))
     }
     
     private func configureTitleLabel() {
-        contentView.addSubview(titleLabel)
         titleLabel.anchor(top: lottieView.bottomAnchor,
                           leading: contentView.leadingAnchor,
                           trailing: contentView.trailingAnchor,
-        padding: UIEdgeInsets(top: 40,
-                              left: 20,
-                              bottom: 0,
-                              right: 20))
+                          padding: .init(top: 40,
+                                         leading: 20,
+                                         trailing: 20))
     }
     
     private func configureTextLabel() {
-        contentView.addSubview(textLabel)
         textLabel.anchor(top: titleLabel.bottomAnchor,
                           leading: contentView.leadingAnchor,
                           trailing: contentView.trailingAnchor,
-        padding: UIEdgeInsets(top: 30,
-                              left: 20,
-                              bottom: 0,
-                              right: 20))
+                          padding: .init(top: 30,
+                                         leading: 20,
+                                         trailing: 20))
     }
     
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TitleLabel: UILabel {
+final class TitleLabel: UILabel {
     
     // MARK: - Initialization
     override init(frame: CGRect) {

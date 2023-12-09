@@ -9,29 +9,25 @@ import UIKit
 
 // MARK: - HomeViewInterface
 protocol HomeViewInterface: AnyObject {
-    func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie])
     func configureHeaderView(with moviePath: [Movie])
     func showLoadingIndicator()
     func dismissLoadingIndicator()
+    func tableViewReloadData()
+    func configureViewDidLoad()
+    func pushVC(_ vc: UIViewController)
+    func alert(title: String, message: String, buttonTitle: String)
 }
 
-class HomeViewController: UIViewController{
+final class HomeViewController: UIViewController{
   
     // MARK: - Properties
-    private lazy var viewModel = HomeVM()
-    
-    // MARK: - Data Arrays
-    private lazy var trendingMovies: [Movie] = []
-    private lazy var TrendingTVs: [Movie] = []
-    private lazy var UpcomingMovies: [Movie] = []
-    private lazy var Popular: [Movie] = []
-    private lazy var TopRated: [Movie] = []
+    private lazy var viewModel = HomeVM(view: self)
     
     // MARK: - Header View
     private var headerView: HeroHeaderUIView?
     
     // MARK: - Section Titles
-    let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular", "Upcoming Movies", "Top rated"]
+    private let sectionTitles: [String] = ["Trending Movies", "Trending Tv", "Popular", "Upcoming Movies", "Top rated"]
     
     // MARK: - TableView
     private let homeFeedTable: UITableView = {
@@ -44,12 +40,9 @@ class HomeViewController: UIViewController{
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureTableView()
-        
-        viewModel.view = self
-        viewModel.getMovies()
+        viewModel.viewDidLoad()
     }
+    
     // MARK: - LayoutSubviews
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -84,26 +77,6 @@ class HomeViewController: UIViewController{
         headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         headerView?.delegate = self
     }
-     
-    // MARK: - Data Update
-    private func updateTable(with data: [Movie]? = nil, for section: Sections) {
-        switch section {
-        case .TrendingMovies:
-            trendingMovies = data ?? []
-        case .TrendingTv:
-            TrendingTVs = data ?? []
-        case .Popular:
-            Popular = data ?? []
-        case .Upcoming:
-            UpcomingMovies = data ?? []
-        case .TopRated:
-            TopRated = data ?? []
-        }
-        
-        DispatchQueue.main.async {
-            self.homeFeedTable.reloadData()
-        }
-    }
 }
 
 // MARK: - UITableViewDelegate and UITableViewDataSource
@@ -126,22 +99,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.section {
         case Sections.TrendingMovies.rawValue:
-            cell.configure(with: trendingMovies)
+            cell.configure(with: viewModel.trendingMovies)
             
         case Sections.TrendingTv.rawValue:
-            cell.configure(with: TrendingTVs)
+            cell.configure(with: viewModel.TrendingTVs)
             
         case Sections.Popular.rawValue:
-            cell.configure(with: UpcomingMovies)
+            cell.configure(with: viewModel.UpcomingMovies)
             
         case Sections.Upcoming.rawValue:
-            cell.configure(with: Popular)
+            cell.configure(with: viewModel.Popular)
             
         case Sections.TopRated.rawValue:
-            cell.configure(with: TopRated)
+            cell.configure(with: viewModel.TopRated)
         default:
             return UITableViewCell()
-            
         }
         return cell
     }
@@ -169,27 +141,45 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - HomeViewInterface
 extension HomeViewController: HomeViewInterface {
+    func configureViewDidLoad() {
+        configureUI()
+        configureTableView()
+    }
+    
+    func tableViewReloadData() {
+        DispatchQueue.main.async {
+            self.homeFeedTable.reloadData()
+        }
+    }
+    
     //Random Image
     func configureHeaderView(with moviePath: [Movie]) {
         let selectedTitle = moviePath.randomElement()
         headerView?.configure(with: selectedTitle!)
     }
-    
-    // Saves data and updates the table.
-    func SaveDatas(with movie: [Movie], tvs: [Movie], upcoming: [Movie], popular: [Movie], topRated: [Movie]) {
-        self.updateTable(with: movie, for: .TrendingMovies)
-        self.updateTable(with: tvs, for: .TrendingTv)
-        self.updateTable(with: upcoming, for: .Popular)
-        self.updateTable(with: popular, for: .Upcoming)
-        self.updateTable(with: topRated, for: .TopRated)
-    }
+  
     // Displays the loading indicator.
     func showLoadingIndicator() {
-        showLoading()
+        DispatchQueue.main.async {
+            self.showLoading()
+        }
     }
     // Dismisses the loading indicator.
     func dismissLoadingIndicator() {
-        dismissLoading()
+    
+        DispatchQueue.main.async {
+            self.dismissLoading()
+        }
+    }
+    
+    func alert(title: String, message: String, buttonTitle: String) {
+        presentAlert(title: title, message: message, buttonTitle: buttonTitle)
+    }
+    
+    func pushVC(_ vc: UIViewController) {
+        DispatchQueue.main.async{
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -206,28 +196,6 @@ extension HomeViewController: CollectionViewTableViewCellDelegate {
 // MARK: - HeroHeaderUIViewProtocol
 extension HomeViewController: HeroHeaderUIViewProtocol {
     func showDetail(movie: Movie) {
-        let vc = MoviePreviewViewController()
-        Task{
-            do {
-                let moviePreviewModel  = try await APICaller.shared.getMovie(with: movie.original_title! + " trailer")
-                guard let movieOverview = movie.overview else {
-                    return
-                }
-             
-                let viewModel = MoviePreviewModel(title: movie.original_title!,
-                                                      youtubeView: moviePreviewModel,
-                                                      movieOverview: movieOverview,
-                                                      release_date: movie.release_date ?? movie.first_air_date)
-                vc.configure(with: viewModel, moviModelIsFavori: movie)
-                navigationController?.pushViewController(vc, animated: true)
-               
-            }catch {
-                if let movieError = error as? MovieError {
-                    print(movieError.rawValue)
-                } else {
-                    presentAlert(title: "Error!", message: error.localizedDescription, buttonTitle: "OK")
-                }
-            }
-        } 
+        viewModel.showDetail(movie: movie)
     }
 }
