@@ -57,4 +57,3 @@ If you have any questions, encounter issues, or want to provide feedback, please
 
 
 **Tags:** `Swift` `UIKit` `MVVM` `iOS` `MovieApp` `MovieAppAPI` `ProgrammaticUI` `Programmaticly`
-
